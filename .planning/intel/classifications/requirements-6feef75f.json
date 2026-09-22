@@ -1,0 +1,38 @@
+{
+  "source_path": "C:/Project/V.A.R.N.A.K.- Visual Architecture & Radiance Navigation with Artificial Knowledge/.kiro/specs/paint-platform/requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Requirements Document - Climate-Aware Home Paint Recommendation & Visualization Platform",
+  "summary": "Comprehensive PRD defining 21 requirements across 6 delivery waves for the climate-aware paint recommendation and visualization platform.",
+  "scope": [
+    "Authentication",
+    "Project Management",
+    "Geocoding",
+    "Climate Profile",
+    "Image Upload",
+    "AI Vision Analysis",
+    "Analysis Review",
+    "Manufacturer & Scope",
+    "Recommendation Engine",
+    "Recommendation Explanation",
+    "Dealer Discovery",
+    "Catalogue Integrity",
+    "Privacy & Data Handling",
+    "Email Notifications",
+    "Rate Limiting",
+    "System Security",
+    "Performance Targets",
+    "Audit Logging",
+    "Visualization",
+    "Multi-Image Aggregation",
+    "Roles and Access Control"
+  ],
+  "cross_refs": [
+    ".kiro/specs/paint-platform/design.md",
+    ".kiro/specs/paint-platform/tasks.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

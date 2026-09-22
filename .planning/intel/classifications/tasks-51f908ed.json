@@ -1,0 +1,24 @@
+{
+  "source_path": "C:/Project/V.A.R.N.A.K.- Visual Architecture & Radiance Navigation with Artificial Knowledge/.kiro/specs/paint-platform/tasks.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Implementation Tasks - Climate-Aware Home Paint Recommendation & Visualization Platform",
+  "summary": "Granular implementation roadmap detailing tasks across Wave 0 through Wave 5 mapped to requirements and design specifications.",
+  "scope": [
+    "Wave 0 Foundation",
+    "Wave 1 MVP",
+    "Wave 2 Recommendation Depth",
+    "Wave 3 Visualization",
+    "Wave 4 Operations/Compliance",
+    "Wave 5 Production Hardening",
+    "Traceability Matrix"
+  ],
+  "cross_refs": [
+    ".kiro/specs/paint-platform/requirements.md",
+    ".kiro/specs/paint-platform/design.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

@@ -1,0 +1,40 @@
+{
+  "source_path": "C:/Project/V.A.R.N.A.K.- Visual Architecture & Radiance Navigation with Artificial Knowledge/.kiro/specs/paint-platform/design.md",
+  "type": "SPEC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Design Document - Climate-Aware Home Paint Recommendation & Visualization Platform",
+  "summary": "Technical architecture specification covering 24 system sections including Next.js 14 App Router, Entra External ID, Azure SQL, Redis queues, Gemini AI pipelines, and recommendation scoring.",
+  "scope": [
+    "Architecture",
+    "Technology Stack",
+    "Authentication Architecture",
+    "Database Schema",
+    "Service Architecture",
+    "API Design",
+    "Recommendation Engine",
+    "Palette Harmony",
+    "Filter Relaxation",
+    "Image Analysis Pipeline",
+    "Climate Service",
+    "Geocoding Service",
+    "Visualization Pipeline",
+    "Dealer Discovery",
+    "Email Service",
+    "Security Design",
+    "Rate Limiting",
+    "Configuration & Secrets",
+    "Observability",
+    "Performance Targets",
+    "Multi-Image Aggregation",
+    "Project Archiving",
+    "Privacy and Consent"
+  ],
+  "cross_refs": [
+    ".kiro/specs/paint-platform/requirements.md",
+    ".kiro/specs/paint-platform/tasks.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Contains core architectural constraints and technical specifications."
+}
