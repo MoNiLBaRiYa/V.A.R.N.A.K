@@ -11,8 +11,8 @@ See: `.planning/PROJECT.md` (updated 2026-09-22)
 
 Phase: 1 of 6 (Foundation)
 Plan: 0 of 3 in current phase
-Status: Ready to execute
-Last activity: 2026-09-22 — Phase 1: Foundation planning completed (01-01, 01-02, 01-03 created)
+Status: BLOCKED (Source contradictions in database schema and scoring weights)
+Last activity: 2026-09-22 — Completed strict audit of planning artifacts against source documents
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -57,9 +57,11 @@ Recent decisions affecting current work:
 
 None yet.
 
-### Blockers/Concerns
-
-None. Conflict report `.planning/INGEST-CONFLICTS.md` has 0 blockers and 0 warnings.
+- **[BLOCKER 1]** Design §4.6 (`ImageAnalysisResult.projectImageId String @unique` non-null) contradicts Design §22 (project-level synthesis with `projectImageId = null`).
+- **[BLOCKER 2]** Requirements §9, §18, and Design §7.3 require versioned/persistent `ScoringWeights`, but Design §4 defines only 23 models with no `ScoringWeights` table. RecommendationRun (§4.13) stores only `scoringWeightsVersion String`.
+- **[WARNING 1]** Project archive API method mismatch: Design §6.1 (`POST`) vs Design §23.1 (`PATCH`).
+- **[WARNING 2]** Design §4.17 `DealerBrand.brandId` lacks Prisma `@relation` to `PaintBrand`.
+- **[WARNING 3]** Tasks §1.8.4 expects BOTH scope unit test in Wave 1, while BOTH recommendation implementation is scoped to Wave 2 (Tasks §2.3).
 
 ## Deferred Items
 

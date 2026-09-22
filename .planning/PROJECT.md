@@ -50,16 +50,17 @@ Delivering scientifically grounded, climate-durable, and architecturally harmoni
 
 - **Architecture**: Next.js 14 (App Router) deployed on Azure App Service with server and client components strictly decoupled.
 - **Identity**: Microsoft Entra External ID integrated via Auth.js v5 as an OIDC session management layer.
-- **Data & Storage**: Azure SQL Database with Prisma 5 ORM; Azure Blob Storage for original and generated imagery; Azure Cache for Redis for rate limiting and BullMQ background job processing.
+- **Data & Storage**: Azure SQL Database with Prisma 5 ORM defining 23 database models from Design §4; Azure Blob Storage for original and generated imagery; Azure Cache for Redis for rate limiting and BullMQ background job processing.
 - **AI Pipelines**: Google Gemini Vision for architectural and surface inspection; Google Gemini Image Generation for Wave 3 color previews.
 - **Manufacturers**: Asian Paints (Wave 1 MVP); Birla Opus, Nerolac, and Berger Paints (Wave 2).
 
 ## Constraints
 
-- **Tech Stack**: Next.js 14, TypeScript, Prisma 5, Azure SQL Database, Tailwind CSS.
+- **Tech Stack**: Next.js 14, TypeScript, Prisma 5 (23 models), Azure SQL Database, Tailwind CSS.
 - **Identity & Auth**: Microsoft Entra External ID is the exclusive identity authority; local credential stores are prohibited.
 - **Catalogue Integrity**: Zero hallucinated or synthetic shades; all recommendations require verified manufacturer provenance.
-- **Job Processing**: Asynchronous tasks (vision analysis, image generation) must run via BullMQ with Redis and retry with exponential backoff.
+- **Job Processing**: In Wave 0 Foundation, BullMQ manages `image-analysis-queue` and `recommendation-queue`. `visualization-queue` belongs to Wave 3.
+- **Recommendation Scoring**: Exactly 9 factors (Climate suitability, Interior/exterior compatibility, Surface compatibility, Product suitability, Architectural characteristics, Room type, Natural light, Colour family compatibility, User preferences). Palette Harmony is post-scoring selection, not a tenth factor.
 - **Performance**: LCP < 2.5s, FID/INP < 200ms, CLS < 0.1, Recommendation calculation < 3.0s.
 - **Security**: Zero secrets in source code; all API keys and connection strings loaded from Azure Key Vault.
 
@@ -71,15 +72,15 @@ Delivering scientifically grounded, climate-durable, and architecturally harmoni
 |----------|-----------|---------|
 | Next.js 14 App Router + TypeScript | Full-stack unified framework with robust React Server Components and API routes | Locked (DEC-01) |
 | Entra External ID + Auth.js v5 | Enterprise-grade identity authority avoiding local credential risk; Auth.js manages OIDC sessions | Locked (DEC-02) |
-| Azure SQL Database + Prisma 5 | Reliable relational consistency, migrations, and type-safety for complex scoring schema | Locked (DEC-03) |
+| Azure SQL Database + Prisma 5 | Reliable relational consistency, migrations, and type-safety across 23 models from Design §4 | Locked (DEC-03) |
 | Azure Blob Storage + SAS URLs | Secure, scalable private storage for property uploads and generated visuals | Locked (DEC-04) |
-| Redis + BullMQ Asynchronous Queues | Decouples heavy AI vision and generation workflows from web request loop | Locked (DEC-05) |
+| Redis + BullMQ Asynchronous Queues | Configures image-analysis-queue and recommendation-queue in Wave 0 (visualization in Wave 3) | Locked (DEC-05) |
 | Google Gemini API for Vision & Image Gen | Multimodal capability for architectural attribute detection and photorealistic visualization | Locked (DEC-06) |
 | Google Geocoding & Open-Meteo Climate | Reliable coordinates resolution with comprehensive year-round climate profiling | Locked (DEC-07) |
-| 9-Factor Scoring + Palette Harmony | Balances durability science with architectural aesthetics and color diversity | Locked (DEC-08) |
+| 9-Factor Scoring + Palette Harmony | Exactly 9 factors from Design §7.1; Palette Harmony is deterministic post-scoring selection | Locked (DEC-08) |
 | 6-Wave Implementation Model | Phased derisking from foundation (Wave 0) through MVP (Wave 1) to visualization and hardening | Locked (DEC-09) |
 
 </decisions>
 
 ---
-*Last updated: 2026-09-22 after document ingestion bootstrap from .kiro/specs/paint-platform*
+*Last updated: 2026-09-22 after strict consistency audit against Requirements.md, Design.md, Tasks.md*

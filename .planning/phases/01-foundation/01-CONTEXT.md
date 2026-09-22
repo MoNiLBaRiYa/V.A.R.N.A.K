@@ -12,11 +12,11 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 - GitHub Actions CI/CD pipeline configuration targeting Azure App Service staging and production slots.
 - Azure Key Vault configuration and environment secrets management (`.env.example`).
 - Azure SQL Database provisioning and Prisma 5 ORM configuration for Microsoft SQL Server.
-- Initial Prisma migrations covering all core tables: Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintShades, PaintProducts, PaintShadeSources, ScoringWeights, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, ImageGenerationJobs, GeneratedImages, AuditLogs.
-- Azure Blob Storage client and private container initialization for uploads and generated previews.
-- Azure Cache for Redis integration and BullMQ worker architecture setup (`image-analysis-queue`, `image-visualization-queue`).
+- Initial Prisma migrations covering all 23 models from Design §4: Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs.
+- Azure Blob Storage client and private container initialization for uploads (`project-images`) and generated visuals (`generated-images`).
+- Azure Cache for Redis integration and BullMQ worker architecture setup (`image-analysis-queue` and `recommendation-queue` per Task 0.4.2; `visualization-queue` belongs to Wave 3).
 - Structured JSON logging with correlation IDs and base sliding-window rate limiting middleware.
-- EmailService abstraction with SendGrid or Azure Communication Services provider.
+- EmailService abstraction with SendGrid or Azure Communication Services provider adapters.
 
 </domain>
 
@@ -35,11 +35,11 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 
 ### Database & Storage Architecture
 - Azure SQL Database (SQL Server) with Prisma 5 ORM (DEC-03).
-- Prisma schema with strict relational integrity, enums (`ImageProcessingState`, `AnalysisState`, `DealerState`, `Role`), and indexes.
+- Prisma schema defining exactly the 23 models from Design §4 with strict relational integrity, enums, and indexes.
 - Azure Blob Storage private container with SAS token generation for client uploads (DEC-04).
 
 ### Caching, Queues & Reliability
-- Azure Cache for Redis with BullMQ queues: `image-analysis-queue` and `image-visualization-queue` (DEC-05).
+- Azure Cache for Redis with BullMQ queues: `image-analysis-queue` and `recommendation-queue` (DEC-05, Tasks §0.4.2). Worker process entrypoint `analysis-worker.ts`.
 - Worker processes running with retry policies (3 attempts, exponential backoff) and dead-letter queue routing.
 - Sliding window rate limiting middleware using Redis atomic counters (REQ-15).
 
@@ -49,8 +49,8 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 - Zero plaintext credentials or hardcoded keys in repository.
 
 ### the agent's Discretion
-- Local development support with docker-compose for SQL Server and Redis emulator to enable offline/local testing.
-- Vitest / Jest test runner setup with mock abstractions for Azure Blob and Redis.
+- Local development support with docker-compose for SQL Server, Redis, and Azurite to enable offline/local testing.
+- Vitest unit test runner setup with mock abstractions for Azure Blob and Redis.
 
 </decisions>
 
@@ -62,11 +62,11 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 ### Architecture & Specification
 - `.kiro/specs/paint-platform/design.md#1-architecture-overview` — Core architecture overview
 - `.kiro/specs/paint-platform/design.md#2-technology-stack` — Complete technology stack definitions
-- `.kiro/specs/paint-platform/design.md#4-database-schema` — Full relational database schema definition
+- `.kiro/specs/paint-platform/design.md#4-database-schema` — Full relational database schema definition (23 models)
 - `.kiro/specs/paint-platform/design.md#16-security-design` — Security, Key Vault, and credential handling
 - `.kiro/specs/paint-platform/design.md#17-rate-limiting-design` — Redis rate limiting specifications
 - `.kiro/specs/paint-platform/design.md#19-observability-and-logging` — Structured JSON logging and audit events
-- `.kiro/specs/paint-platform/tasks.md#wave-0--foundation` — Tasks breakdown for Wave 0 Foundation
+- `.kiro/specs/paint-platform/tasks.md#wave-0--foundation` — Tasks breakdown for Wave 0 Foundation (Tasks 0.1–0.8)
 - `.planning/intel/decisions.md` — Locked architectural decisions (DEC-01 to DEC-09)
 - `.planning/intel/constraints.md` — Architectural constraints and contracts (CON-01 to CON-08)
 
@@ -76,8 +76,8 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 ## Specific Ideas
 
 - Ensure Prisma schema accurately maps SQL Server types (e.g. `DateTime`, `NVarChar`, `Float`).
-- Provide seed script (`prisma/seed.ts`) to populate initial scoring weights and reference lookups.
-- BullMQ worker architecture should allow running as a separate worker process or background service.
+- Provide seed script (`prisma/seed.ts`) to populate the 4 `PaintBrand` records (Asian Paints, Birla Opus, Nerolac, Berger Paints) and initial `DataSource` records per Task 0.2.27.
+- BullMQ worker architecture should allow running as a separate worker process (`analysis-worker.ts`).
 
 </specifics>
 
@@ -85,6 +85,7 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 ## Deferred Ideas
 
 - Wave 1 MVP features (Entra login UI, geocoding endpoints, Open-Meteo client, Gemini Vision prompt execution, recommendation engine UI).
+- Wave 3 features (`visualization-queue`, `visualization-worker.ts`, Gemini Image Generation).
 - Mappls Geocoding API client (deferred to v2).
 - SAM2 advanced segmentation (deferred to v2).
 
