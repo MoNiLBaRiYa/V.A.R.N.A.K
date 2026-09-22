@@ -69,7 +69,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REQ-01 (Auth) | Phase 2 (MVP) | Pending |
+| REQ-01 (Auth) | Phase 1 (Foundation) & Phase 2 (MVP) | Pending |
 | REQ-02 (Projects) | Phase 2 (MVP) | Pending |
 | REQ-03 (Geocoding) | Phase 2 (MVP) | Pending |
 | REQ-04 (Climate) | Phase 2 (MVP) | Pending |

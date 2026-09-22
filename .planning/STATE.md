@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-09-22)
 ## Current Position
 
 Phase: 1 of 6 (Foundation)
-Plan: 0 of 3 in current phase
+Plan: 0 of 4 in current phase
 Status: BLOCKED (Source contradictions in database schema and scoring weights)
 Last activity: 2026-09-22 — Completed strict audit of planning artifacts against source documents
 
@@ -27,7 +27,7 @@ Progress: [░░░░░░░░░░] 0%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation | 0/3 | - | - |
+| 1. Foundation | 0/4 | - | - |
 | 2. MVP Core & E2E Vertical Slice | 0/5 | - | - |
 | 3. Recommendation Depth & Multi-Image | 0/3 | - | - |
 | 4. Generative Visualization | 0/2 | - | - |

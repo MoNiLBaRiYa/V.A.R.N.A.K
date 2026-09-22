@@ -17,6 +17,7 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 - Azure Cache for Redis integration and BullMQ worker architecture setup (`image-analysis-queue` and `recommendation-queue` per Task 0.4.2; `visualization-queue` belongs to Wave 3).
 - Structured JSON logging with correlation IDs and base sliding-window rate limiting middleware.
 - EmailService abstraction with SendGrid or Azure Communication Services provider adapters.
+- Authentication Setup (Task 0.5): Microsoft Entra External ID app registration, Auth.js v5 OIDC integration, session protection middleware for `/api/v1/*`, post-login callback handler with User upsert and AuditLog events, CI schema check for no password fields, and AUTH_PROVIDER=EntraExternalID invariant tests.
 
 </domain>
 

@@ -18,19 +18,21 @@ This roadmap orchestrates the delivery of V.A.R.N.A.K. across six sequential pha
 ## Phase Details
 
 ### Phase 1: Foundation
-**Goal**: Establish production-ready base infrastructure, database schema, blob storage, Redis queues, and foundational security controls.
+**Goal**: Establish production-ready base infrastructure, database schema, blob storage, Redis queues, authentication foundation, and foundational security controls.
 **Depends on**: Nothing (first phase)
-**Requirements**: REQ-05 (part), REQ-12 (part), REQ-14 (part), REQ-15 (part), REQ-16 (part), REQ-18 (part)
+**Requirements**: REQ-01 (part), REQ-05 (part), REQ-12 (part), REQ-14 (part), REQ-15 (part), REQ-16, REQ-18 (part)
 **Success Criteria** (what must be TRUE):
   1. Next.js 14 App Router project builds cleanly with TypeScript, ESLint, and environment configuration loaded from Azure Key Vault.
   2. Prisma migrations successfully create all 23 database models from Design §4 on Azure SQL Database.
   3. Azure Blob Storage client successfully uploads and retrieves test blobs with private SAS authorization.
   4. Redis cache and BullMQ worker queues (image-analysis-queue and recommendation-queue) process background test jobs with retry capabilities.
   5. Structured JSON logging records application events with correlated request IDs.
-**Plans**: 3 plans
+  6. Microsoft Entra External ID and Auth.js v5 protect /api/v1/* routes, execute user creation callbacks, and pass architectural invariant tests.
+**Plans**: 4 plans
 - [ ] 01-01: Project initialization, linting/formatting, CI/CD pipeline, and Key Vault configuration.
 - [ ] 01-02: Prisma schema definition (23 models), SQL Server database migrations, and repository data access layer.
 - [ ] 01-03: Azure Blob Storage service, Redis client, BullMQ worker scaffold (image-analysis-queue, recommendation-queue), structured logging, and rate limiting middleware.
+- [ ] 01-04: Authentication setup via Microsoft Entra External ID, Auth.js v5 session middleware, post-login callback, and security invariant test suite.
 
 ### Phase 2: MVP Core & E2E Vertical Slice
 **Goal**: Deliver a complete end-to-end user journey: login, property creation, geocoding, climate profiling, photo upload, Gemini Vision inspection, analysis review, 9-factor recommendation using Asian Paints catalogue, explanation, and dealer discovery.
@@ -114,7 +116,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/3 | Not started | - |
+| 1. Foundation | 0/4 | Not started | - |
 | 2. MVP Core & E2E Vertical Slice | 0/5 | Not started | - |
 | 3. Recommendation Depth & Multi-Image | 0/3 | Not started | - |
 | 4. Generative Visualization | 0/2 | Not started | - |

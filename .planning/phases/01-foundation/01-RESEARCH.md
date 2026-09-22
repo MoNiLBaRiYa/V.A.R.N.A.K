@@ -195,7 +195,8 @@ Rate limiting uses Redis sorted sets (`ZADD`, `ZREMRANGEBYSCORE`, `ZCARD`, `EXPI
 
 ## Plan Decomposition Guidance
 
-Phase 1 is organized into 3 focused plans:
+Phase 1 is organized into 4 focused plans:
 1. **Plan 01-01**: Next.js 14 baseline, TypeScript, Tailwind CSS, environment validation schema (`env.ts`), ESLint/Prettier/Husky hooks, and GitHub Actions CI/CD workflows.
 2. **Plan 01-02**: Complete Prisma 5 schema for Microsoft SQL Server defining all 23 models from Design §4, initial migration generation, seed script (4 PaintBrands + DataSources), and database client singleton.
 3. **Plan 01-03**: Azure Blob Storage client with SAS generator, Redis connection wrapper, BullMQ queues (`image-analysis-queue`, `recommendation-queue`) and `analysis-worker.ts` scaffold, structured JSON logging with correlation IDs, and sliding-window rate limiting middleware.
+4. **Plan 01-04**: Authentication foundation (Task 0.5): Microsoft Entra External ID configuration, Auth.js v5 OIDC provider setup, `/api/v1/*` session protection middleware, post-login callback User upsert and AuditLog events, and `AUTH_PROVIDER=EntraExternalID` security invariant test suite.
