@@ -13,12 +13,12 @@ Synthesized from: `.kiro/specs/paint-platform/design.md`
   - Cookies must be `HttpOnly`, `Secure`, `SameSite=Lax`.
   - Registration must capture explicit acceptance of Privacy Policy version and AI image processing disclosure.
 
-## CON-02: Database Schema & Entity Relationships (23 Models)
+## CON-02: Database Schema & Entity Relationships (25 Models)
 - **Source**: `.kiro/specs/paint-platform/design.md#4-database-schema`
 - **Type**: `schema`
 - **Constraint Block**:
   - Prisma 5 with Microsoft SQL Server provider (`@prisma/client`).
-  - Exactly 23 models defined in Design §4:
+  - Exactly 25 models defined in Design §4:
     1. `Users` (§4.1)
     2. `UserProfiles` (§4.2)
     3. `Projects` (§4.3)
@@ -42,11 +42,16 @@ Synthesized from: `.kiro/specs/paint-platform/design.md`
     21. `GeminiFallbackPrompts` (§4.21, Wave 3 schema entity)
     22. `DataSources` (§4.22)
     23. `AuditLogs` (§4.23)
+    24. `ProjectAnalysisSynthesis` (§4.24, Wave 2 multi-image synthesis entity)
+    25. `ScoringWeightVersion` (§4.25, persistent scoring weights version entity)
   - Enums defined: `UserRole`, `ProjectStatus`, `ImageProcessingState`, `AnalysisState`, `ApplicationScope`, `Provenance`, `RunStatus`, `ScoringFactor`, `DealerState`, `GenerationJobStatus`.
-  - Schema Gaps & Contradictions:
-    - **ImageAnalysisResult.projectImageId**: Defined as non-null `String @unique` in §4.6, but Design §22 describes project-level synthesis with `projectImageId = null`.
-    - **ScoringWeights Model Absence**: Referenced in Requirements and Design §7.3 as versioned records, but no model is defined in Design §4.
-    - **DealerBrands.brandId Relation**: `DealerBrands` defines `brandId String` without a Prisma `@relation` to `PaintBrand`.
+  - Resolved Schema Items:
+    - **ImageAnalysisResult.projectImageId**: Preserved as strict 1:1 `String @unique` with `ProjectImage`. Multi-image whole-home synthesis is handled via dedicated `ProjectAnalysisSynthesis` model (§4.24).
+    - **ScoringWeights Persistence**: Modeled via dedicated relational `ScoringWeightVersion` table (§4.25) referenced by `RecommendationRun.scoringWeightsVersionId`.
+  - Retained Flagged Warnings:
+    - **DealerBrands.brandId Relation**: `DealerBrands` defines `brandId String` without a Prisma `@relation` to `PaintBrand`. Preserved as intentional non-blocking warning.
+    - **Project Archive HTTP Method**: Design §6.1 (`POST`) vs Design §23.1 (`PATCH`). Preserved as intentional non-blocking warning.
+    - **ApplicationScope=BOTH Scope**: Tasks §1.8.4 unit test in Wave 1 vs dual-list algorithm delivery in Wave 2. Preserved as intentional non-blocking warning.
 
 ## CON-03: Media Storage & Access Control
 - **Source**: `.kiro/specs/paint-platform/design.md#2-technology-stack`, `#16-security-design`

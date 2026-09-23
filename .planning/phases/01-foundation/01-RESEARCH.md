@@ -11,7 +11,7 @@
 ### Locked Decisions
 - **DEC-01**: Next.js 14 (App Router) with React 18, TypeScript, and Tailwind CSS.
 - **DEC-02**: Microsoft Entra External ID is the sole identity authority. Auth.js v5 acts purely as the OIDC client session layer. Passwords are never stored in the application database.
-- **DEC-03**: Azure SQL Database (SQL Server) with Prisma 5 ORM (`provider = "sqlserver"`). All 23 models from Design §4.1–§4.23 must be created.
+- **DEC-03**: Azure SQL Database (SQL Server) with Prisma 5 ORM (`provider = "sqlserver"`). All 25 models from Design §4.1–§4.25 must be created.
 - **DEC-04**: Azure Blob Storage private containers (`project-images`, `generated-images`) accessed via pre-signed time-limited SAS tokens. Direct public access is disabled.
 - **DEC-05**: Azure Cache for Redis and BullMQ for asynchronous job queues (`image-analysis-queue`, `recommendation-queue` per Tasks §0.4.2) and sliding-window rate limiting. `visualization-queue` belongs to Wave 3.
 - **REQ-15**: Redis-backed sliding-window rate limiting middleware.
@@ -38,7 +38,7 @@
 | Framework | `next` | `^14.2.0` | `[VERIFIED: npm registry]` | App Router, React Server Components, REST API routes |
 | Language | `typescript` | `^5.4.0` | `[VERIFIED: npm registry]` | Static type checking and contracts |
 | Styling | `tailwindcss`, `postcss`, `autoprefixer` | `^3.4.0` | `[VERIFIED: npm registry]` | Utility-first CSS styling |
-| ORM | `prisma`, `@prisma/client` | `^5.14.0` | `[VERIFIED: npm registry]` | Microsoft SQL Server relational modeling and migrations (23 models) |
+| ORM | `prisma`, `@prisma/client` | `^5.14.0` | `[VERIFIED: npm registry]` | Microsoft SQL Server relational modeling and migrations (25 models) |
 | Object Storage | `@azure/storage-blob` | `^12.18.0` | `[VERIFIED: npm registry]` | Azure Blob container operations and SAS token generation |
 | Identity & Session | `next-auth` (Auth.js v5) | `^5.0.0-beta` | `[VERIFIED: npm registry]` | OIDC client for Entra External ID and session cookies |
 | Queue / Async | `bullmq` | `^5.7.0` | `[VERIFIED: npm registry]` | Redis-backed queues (`image-analysis-queue`, `recommendation-queue`) |
@@ -69,13 +69,13 @@ export const prisma =
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 ```
 
-### 2. SQL Server Specific Prisma Types across 23 Models
+### 2. SQL Server Specific Prisma Types across 25 Models
 When defining Prisma models for Azure SQL Database:
 - UUID primary keys: `@id @default(uuid())` maps to `uniqueidentifier` or `NVarChar(36)`.
 - Free text: map strings to `@db.NVarChar(max)` or `@db.NVarChar(255)`.
 - Floating-point calculations: use `@db.Float` for coordinates and scores.
 - Timestamps: use `DateTime @default(now())` mapping to `datetime2`.
-- Models: All 23 models defined in Design §4.1–§4.23 (Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs).
+- Models: All 25 models defined in Design §4.1–§4.25 (Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs, ProjectAnalysisSynthesis, ScoringWeightVersion).
 
 ### 3. Azure Blob Storage SAS Token Generation
 To adhere to the zero-public-access constraint (DEC-04 / CON-03), clients never upload directly via public endpoints. The server generates time-limited Shared Access Signature (SAS) tokens with write-only permissions:
@@ -160,24 +160,28 @@ Rate limiting uses Redis sorted sets (`ZADD`, `ZREMRANGEBYSCORE`, `ZCARD`, `EXPI
 
 ---
 
-## Source Contradictions & Architecture Gaps Flagged
+## Source Contradictions & Architecture Gaps Status
 
-1. **ImageAnalysisResult.projectImageId Contradiction**:
-   - In Design §4.6, `projectImageId String @unique` is non-null and references `ProjectImage`.
-   - In Design §22, Wave 2 project-level synthesis is specified as: "stored as a special ImageAnalysisResult with no associated ProjectImage (projectImageId = null)".
-   - *Impact*: In SQL Server via Prisma, non-null `String @unique` will prevent inserting null `projectImageId` records in Wave 2. Requires source document resolution.
+1. **[RESOLVED] ImageAnalysisResult.projectImageId Contradiction**:
+   - Resolved by creating dedicated `ProjectAnalysisSynthesis` model (Design §4.24, Tasks §0.2.26, §2.4.2) linked 1:1 to `Project` (`projectId`).
+   - `ImageAnalysisResult.projectImageId String @unique` remains strictly non-null and 1:1 with `ProjectImage`.
 
-2. **ScoringWeights Model Absence**:
-   - Requirements (Req 9.3, 18.2) and Design §7.3 refer to active, versioned `ScoringWeights`.
-   - Design §4 defines exactly 23 models and does NOT include a `ScoringWeights` table; `RecommendationRun` (§4.13) only stores `scoringWeightsVersion String`.
-   - *Impact*: No 24th table may be silently created in Wave 0 without explicit source clarification.
+2. **[RESOLVED] ScoringWeights Model Absence**:
+   - Resolved by creating dedicated `ScoringWeightVersion` model (Design §4.25, Tasks §0.2.27, §4.3.1) with unique version string, 9-factor JSON weights, `isActive` flag, and AuditLog event.
+   - `RecommendationRun` (§4.13) holds foreign key `scoringWeightsVersionId` to `ScoringWeightVersion`. Total database models: exactly 25.
 
-3. **DealerBrands.brandId Relation**:
+3. **[FLAGGED WARNING] DealerBrands.brandId Relation**:
    - In Design §4.17, `DealerBrand` has `brandId String` without a Prisma `@relation` to `PaintBrand`.
+   - Preserved as intentional non-blocking warning per user instructions.
 
-4. **Project Archive HTTP Method**:
+4. **[FLAGGED WARNING] Project Archive HTTP Method**:
    - Design §6.1 specifies `POST /api/v1/projects/:id/archive`.
    - Design §23.1 specifies `PATCH /api/v1/projects/:id/archive`.
+   - Preserved as intentional non-blocking warning per user instructions.
+
+5. **[FLAGGED WARNING] ApplicationScope=BOTH Test vs Feature Wave**:
+   - Tasks §1.8.4 defines a Wave 1 unit test asserting `ApplicationScope=BOTH`, while Tasks §2.3 and Requirements defer dual-list generation to Wave 2.
+   - Preserved as intentional non-blocking warning per user instructions.
 
 ---
 
@@ -197,6 +201,6 @@ Rate limiting uses Redis sorted sets (`ZADD`, `ZREMRANGEBYSCORE`, `ZCARD`, `EXPI
 
 Phase 1 is organized into 4 focused plans:
 1. **Plan 01-01**: Next.js 14 baseline, TypeScript, Tailwind CSS, environment validation schema (`env.ts`), ESLint/Prettier/Husky hooks, and GitHub Actions CI/CD workflows.
-2. **Plan 01-02**: Complete Prisma 5 schema for Microsoft SQL Server defining all 23 models from Design §4, initial migration generation, seed script (4 PaintBrands + DataSources), and database client singleton.
+2. **Plan 01-02**: Complete Prisma 5 schema for Microsoft SQL Server defining all 25 models from Design §4, initial migration generation, seed script (4 PaintBrands + DataSources + initial active ScoringWeightVersion), and database client singleton.
 3. **Plan 01-03**: Azure Blob Storage client with SAS generator, Redis connection wrapper, BullMQ queues (`image-analysis-queue`, `recommendation-queue`) and `analysis-worker.ts` scaffold, structured JSON logging with correlation IDs, and sliding-window rate limiting middleware.
 4. **Plan 01-04**: Authentication foundation (Task 0.5): Microsoft Entra External ID configuration, Auth.js v5 OIDC provider setup, `/api/v1/*` session protection middleware, post-login callback User upsert and AuditLog events, and `AUTH_PROVIDER=EntraExternalID` security invariant test suite.

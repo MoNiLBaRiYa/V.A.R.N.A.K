@@ -21,11 +21,11 @@ Synthesized from:
 - **Decision Statement**: Microsoft Entra External ID serves as the sole identity authority. The platform maintains zero independent credential stores, password hashes, or login endpoints. Auth.js v5 is used strictly as an OIDC client for code exchange and session cookie management (HttpOnly, Secure, SameSite=Lax). Password resets and MFA/lockout policies are delegated exclusively to Entra External ID.
 
 ## DEC-03: Primary Database and ORM
-- **Title**: Azure SQL Database with Prisma 5 ORM (23 Models)
+- **Title**: Azure SQL Database with Prisma 5 ORM (25 Models)
 - **Source**: `.kiro/specs/paint-platform/design.md#4-database-schema`, `.kiro/specs/paint-platform/tasks.md#02-database-setup`
 - **Status**: Locked
 - **Scope**: Data Storage, Schema Management
-- **Decision Statement**: Azure SQL Database (SQL Server) is the primary relational database, managed via Prisma 5 ORM for type-safe schema definitions and automated migrations. Exactly 23 models are defined in Design §4 (Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs). Passwords are never stored in the database.
+- **Decision Statement**: Azure SQL Database (SQL Server) is the primary relational database, managed via Prisma 5 ORM for type-safe schema definitions and automated migrations. Exactly 25 models are defined in Design §4 (Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs, ProjectAnalysisSynthesis, ScoringWeightVersion). Passwords are never stored in the database.
 
 ## DEC-04: Media and Document Storage
 - **Title**: Azure Blob Storage for Uploads and Previews

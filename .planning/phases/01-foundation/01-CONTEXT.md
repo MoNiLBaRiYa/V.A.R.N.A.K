@@ -12,7 +12,7 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 - GitHub Actions CI/CD pipeline configuration targeting Azure App Service staging and production slots.
 - Azure Key Vault configuration and environment secrets management (`.env.example`).
 - Azure SQL Database provisioning and Prisma 5 ORM configuration for Microsoft SQL Server.
-- Initial Prisma migrations covering all 23 models from Design §4: Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs.
+- Initial Prisma migrations covering all 25 models from Design §4: Users, UserProfiles, Projects, ProjectLocations, ProjectImages, ImageAnalysisResults, PaintBrands, PaintProducts, PaintShades, PaintShadeSources, ClimateProfiles, ClimateObservations, RecommendationRuns, Recommendations, RecommendationFactors, Dealers, DealerBrands, DealerVerificationRecords, ImageGenerationJobs, GeneratedImages, GeminiFallbackPrompts, DataSources, AuditLogs, ProjectAnalysisSynthesis, ScoringWeightVersion.
 - Azure Blob Storage client and private container initialization for uploads (`project-images`) and generated visuals (`generated-images`).
 - Azure Cache for Redis integration and BullMQ worker architecture setup (`image-analysis-queue` and `recommendation-queue` per Task 0.4.2; `visualization-queue` belongs to Wave 3).
 - Structured JSON logging with correlation IDs and base sliding-window rate limiting middleware.
@@ -36,7 +36,7 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 
 ### Database & Storage Architecture
 - Azure SQL Database (SQL Server) with Prisma 5 ORM (DEC-03).
-- Prisma schema defining exactly the 23 models from Design §4 with strict relational integrity, enums, and indexes.
+- Prisma schema defining exactly the 25 models from Design §4 with strict relational integrity, enums, and indexes.
 - Azure Blob Storage private container with SAS token generation for client uploads (DEC-04).
 
 ### Caching, Queues & Reliability
@@ -63,7 +63,7 @@ Phase 1 establishes the foundational infrastructure, repository setup, and data 
 ### Architecture & Specification
 - `.kiro/specs/paint-platform/design.md#1-architecture-overview` — Core architecture overview
 - `.kiro/specs/paint-platform/design.md#2-technology-stack` — Complete technology stack definitions
-- `.kiro/specs/paint-platform/design.md#4-database-schema` — Full relational database schema definition (23 models)
+- `.kiro/specs/paint-platform/design.md#4-database-schema` — Full relational database schema definition (25 models)
 - `.kiro/specs/paint-platform/design.md#16-security-design` — Security, Key Vault, and credential handling
 - `.kiro/specs/paint-platform/design.md#17-rate-limiting-design` — Redis rate limiting specifications
 - `.kiro/specs/paint-platform/design.md#19-observability-and-logging` — Structured JSON logging and audit events

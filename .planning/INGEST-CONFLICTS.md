@@ -1,18 +1,16 @@
 ## Conflict Detection Report
 
-### BLOCKERS (2)
+### RESOLVED BLOCKERS (2)
 
-[BLOCKER] ImageAnalysisResult.projectImageId schema definition vs Wave 2 synthesis
-  Found: Design §4.6 defines `projectImageId String @unique` (non-null unique foreign key referencing ProjectImage)
-  Expected: Design §22 requires project-level synthesis stored as an ImageAnalysisResult with `projectImageId = null`
-  → Resolve in Design.md by either making `projectImageId String?` with filtered unique index, or explicitly defining a separate ProjectAnalysisSynthesis model before running database migrations.
+[RESOLVED BLOCKER 1] ImageAnalysisResult.projectImageId schema definition vs Wave 2 synthesis
+  Found: Design §4.6 defined `projectImageId String @unique` (non-null unique foreign key referencing ProjectImage), while Design §22 described project-level synthesis with `projectImageId = null`.
+  Resolution: Created dedicated `ProjectAnalysisSynthesis` model (Design §4.24, Tasks §0.2.26, Tasks §2.4.2) linked 1:1 to `Project` (`projectId`). `ImageAnalysisResult.projectImageId String @unique` remains strictly 1:1 and non-null with `ProjectImage`.
 
-[BLOCKER] ScoringWeights persistent model missing from Design §4 database schema
-  Found: Design §4 defines exactly 23 database models and does not include a ScoringWeights model; RecommendationRun (§4.13) only stores `scoringWeightsVersion String`
-  Expected: Requirements §9, §18, and Design §7.3 mandate persistent, versioned ScoringWeights with active status and audit logging of weight changes
-  → Clarify in Design §4 whether ScoringWeights is stored as a 24th database table (`ScoringWeights`), in a JSON configuration file, or in application code before finalizing database schema.
+[RESOLVED BLOCKER 2] ScoringWeights persistent model missing from Design §4 database schema
+  Found: Requirements §9, §18, and Design §7.3 mandated persistent, versioned ScoringWeights with active status and audit logging, but Design §4 previously defined only 23 models without a ScoringWeights table.
+  Resolution: Created dedicated `ScoringWeightVersion` model (Design §4.25, Tasks §0.2.27, Tasks §4.3.1) with unique version string, 9-factor JSON weights, `isActive` flag, and AuditLog event. `RecommendationRun` (§4.13) references `ScoringWeightVersion` via `scoringWeightsVersionId`. Total database models: exactly 25.
 
-### WARNINGS (3)
+### ACTIVE WARNINGS (3 — Flagged, Non-Blocking)
 
 [WARNING] Project archive/unarchive HTTP method inconsistency
   Found: Design §6.1 specifies `POST /api/v1/projects/:id/archive` (matched by Tasks §1.2.4)

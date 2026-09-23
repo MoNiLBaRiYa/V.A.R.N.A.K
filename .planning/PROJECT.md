@@ -50,13 +50,13 @@ Delivering scientifically grounded, climate-durable, and architecturally harmoni
 
 - **Architecture**: Next.js 14 (App Router) deployed on Azure App Service with server and client components strictly decoupled.
 - **Identity**: Microsoft Entra External ID integrated via Auth.js v5 as an OIDC session management layer.
-- **Data & Storage**: Azure SQL Database with Prisma 5 ORM defining 23 database models from Design §4; Azure Blob Storage for original and generated imagery; Azure Cache for Redis for rate limiting and BullMQ background job processing.
+- **Data & Storage**: Azure SQL Database with Prisma 5 ORM defining 25 database models from Design §4; Azure Blob Storage for original and generated imagery; Azure Cache for Redis for rate limiting and BullMQ background job processing.
 - **AI Pipelines**: Google Gemini Vision for architectural and surface inspection; Google Gemini Image Generation for Wave 3 color previews.
 - **Manufacturers**: Asian Paints (Wave 1 MVP); Birla Opus, Nerolac, and Berger Paints (Wave 2).
 
 ## Constraints
 
-- **Tech Stack**: Next.js 14, TypeScript, Prisma 5 (23 models), Azure SQL Database, Tailwind CSS.
+- **Tech Stack**: Next.js 14, TypeScript, Prisma 5 (25 models), Azure SQL Database, Tailwind CSS.
 - **Identity & Auth**: Microsoft Entra External ID is the exclusive identity authority; local credential stores are prohibited.
 - **Catalogue Integrity**: Zero hallucinated or synthetic shades; all recommendations require verified manufacturer provenance.
 - **Job Processing**: In Wave 0 Foundation, BullMQ manages `image-analysis-queue` and `recommendation-queue`. `visualization-queue` belongs to Wave 3.
@@ -72,7 +72,7 @@ Delivering scientifically grounded, climate-durable, and architecturally harmoni
 |----------|-----------|---------|
 | Next.js 14 App Router + TypeScript | Full-stack unified framework with robust React Server Components and API routes | Locked (DEC-01) |
 | Entra External ID + Auth.js v5 | Enterprise-grade identity authority avoiding local credential risk; Auth.js manages OIDC sessions | Locked (DEC-02) |
-| Azure SQL Database + Prisma 5 | Reliable relational consistency, migrations, and type-safety across 23 models from Design §4 | Locked (DEC-03) |
+| Azure SQL Database + Prisma 5 | Reliable relational consistency, migrations, and type-safety across 25 models from Design §4 | Locked (DEC-03) |
 | Azure Blob Storage + SAS URLs | Secure, scalable private storage for property uploads and generated visuals | Locked (DEC-04) |
 | Redis + BullMQ Asynchronous Queues | Configures image-analysis-queue and recommendation-queue in Wave 0 (visualization in Wave 3) | Locked (DEC-05) |
 | Google Gemini API for Vision & Image Gen | Multimodal capability for architectural attribute detection and photorealistic visualization | Locked (DEC-06) |
