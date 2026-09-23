@@ -53,13 +53,14 @@ Recent decisions affecting current work:
 - [Phase 1]: Azure Blob Storage for media asset storage with private SAS authorization (DEC-04)
 - [Phase 1]: Azure Cache for Redis and BullMQ for async queues and sliding window rate limiting (DEC-05)
 
-### Blockers Resolved & Active Warnings
+### Resolved Blockers & Warnings (All 5 Resolved)
 
-- **[RESOLVED] Blocker 1**: Design §4.6 (`ImageAnalysisResult.projectImageId String @unique` non-null) preserved; dedicated `ProjectAnalysisSynthesis` model (§4.24, Tasks §0.2.26) created for multi-image synthesis.
-- **[RESOLVED] Blocker 2**: `ScoringWeightVersion` model (§4.25, Tasks §0.2.27) created with unique version string, 9-factor JSON weights, `isActive` flag, and AuditLog event; referenced by `RecommendationRun.scoringWeightsVersionId`. Total database models: 25.
-- **[FLAGGED WARNING 1]** Project archive API method mismatch: Design §6.1 (`POST`) vs Design §23.1 (`PATCH`).
-- **[FLAGGED WARNING 2]** Design §4.17 `DealerBrand.brandId` lacks Prisma `@relation` to `PaintBrand`.
-- **[FLAGGED WARNING 3]** Tasks §1.8.4 expects BOTH scope unit test in Wave 1, while BOTH recommendation implementation is scoped to Wave 2 (Tasks §2.3).
+- **[RESOLVED] Blocker 1 (Synthesis Model)**: Design §4.6 (`ImageAnalysisResult.projectImageId String @unique` non-null) preserved; dedicated `ProjectAnalysisSynthesis` model (§4.24, Tasks §0.2.26) created for multi-image synthesis.
+- **[RESOLVED] Blocker 2 (Scoring Weights)**: `ScoringWeightVersion` model (§4.25, Tasks §0.2.27) created with unique version string, 9-factor JSON weights, `isActive` flag, and AuditLog event; referenced by `RecommendationRun.scoringWeightsVersionId`. Total database models: exactly 25.
+- **[RESOLVED] Warning 1 (Archive Method)**: Standardized on `POST /api/v1/projects/:id/archive` and `POST /api/v1/projects/:id/unarchive` across Design §6.1, Tasks §1.2.4/§1.2.5, and Design §23.1.
+- **[RESOLVED] Warning 2 (DealerBrands Relation)**: Explicit foreign key relation `brand PaintBrand @relation(fields: [brandId], references: [id])` on `DealerBrand` and back-relation `dealers DealerBrand[]` on `PaintBrand` added to Prisma schema (Design §4.7, §4.17; Tasks §0.2.19).
+- **[RESOLVED] Warning 3 (ApplicationScope=BOTH Scope)**: Requirements (Req 8.4, 9.12) and Tasks §1.8.4 aligned: Wave 1 accepts, validates, and persists `INTERIOR`, `EXTERIOR`, and `BOTH`. Wave 2 implements and tests dual recommendation list generation (Tasks §2.3).
+- **Remaining Contradictions**: **0** (Zero).
 
 ## Deferred Items
 

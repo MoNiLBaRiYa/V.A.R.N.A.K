@@ -25,7 +25,7 @@ Synthesized from: `.kiro/specs/paint-platform/design.md`
     4. `ProjectLocations` (§4.4)
     5. `ProjectImages` (§4.5)
     6. `ImageAnalysisResults` (§4.6)
-    7. `PaintBrands` (§4.7)
+    7. `PaintBrands` (§4.7, with `dealers DealerBrand[]` back-relation)
     8. `PaintProducts` (§4.8)
     9. `PaintShades` (§4.9)
     10. `PaintShadeSources` (§4.10)
@@ -35,7 +35,7 @@ Synthesized from: `.kiro/specs/paint-platform/design.md`
     14. `Recommendations` (§4.14)
     15. `RecommendationFactors` (§4.15)
     16. `Dealers` (§4.16)
-    17. `DealerBrands` (§4.17)
+    17. `DealerBrands` (§4.17, with `brand PaintBrand @relation` foreign key)
     18. `DealerVerificationRecords` (§4.18)
     19. `ImageGenerationJobs` (§4.19, Wave 3 schema entity)
     20. `GeneratedImages` (§4.20, Wave 3 schema entity)
@@ -45,13 +45,12 @@ Synthesized from: `.kiro/specs/paint-platform/design.md`
     24. `ProjectAnalysisSynthesis` (§4.24, Wave 2 multi-image synthesis entity)
     25. `ScoringWeightVersion` (§4.25, persistent scoring weights version entity)
   - Enums defined: `UserRole`, `ProjectStatus`, `ImageProcessingState`, `AnalysisState`, `ApplicationScope`, `Provenance`, `RunStatus`, `ScoringFactor`, `DealerState`, `GenerationJobStatus`.
-  - Resolved Schema Items:
+  - Resolved Schema & Architecture Items:
     - **ImageAnalysisResult.projectImageId**: Preserved as strict 1:1 `String @unique` with `ProjectImage`. Multi-image whole-home synthesis is handled via dedicated `ProjectAnalysisSynthesis` model (§4.24).
     - **ScoringWeights Persistence**: Modeled via dedicated relational `ScoringWeightVersion` table (§4.25) referenced by `RecommendationRun.scoringWeightsVersionId`.
-  - Retained Flagged Warnings:
-    - **DealerBrands.brandId Relation**: `DealerBrands` defines `brandId String` without a Prisma `@relation` to `PaintBrand`. Preserved as intentional non-blocking warning.
-    - **Project Archive HTTP Method**: Design §6.1 (`POST`) vs Design §23.1 (`PATCH`). Preserved as intentional non-blocking warning.
-    - **ApplicationScope=BOTH Scope**: Tasks §1.8.4 unit test in Wave 1 vs dual-list algorithm delivery in Wave 2. Preserved as intentional non-blocking warning.
+    - **DealerBrands.brandId Relation**: Explicit `@relation(fields: [brandId], references: [id])` to `PaintBrand` and back-relation on `PaintBrand` added to Prisma schema (Design §4.7, §4.17; Tasks §0.2.19).
+    - **Project Archive HTTP Method**: Standardized on `POST /api/v1/projects/:id/archive` and `POST /api/v1/projects/:id/unarchive` across Design §6.1, Tasks §1.2.4/§1.2.5, and Design §23.1.
+    - **ApplicationScope=BOTH Scope**: Wave 1 accepts, validates, and persists `INTERIOR`, `EXTERIOR`, and `BOTH`. Wave 2 implements and tests dual recommendation lists (Requirements Req 8.4, 9.12; Tasks §1.8.4, §2.3).
 
 ## CON-03: Media Storage & Access Control
 - **Source**: `.kiro/specs/paint-platform/design.md#2-technology-stack`, `#16-security-design`

@@ -1,6 +1,6 @@
 ## Conflict Detection Report
 
-### RESOLVED BLOCKERS (2)
+### RESOLVED CONFLICTS & WARNINGS (5)
 
 [RESOLVED BLOCKER 1] ImageAnalysisResult.projectImageId schema definition vs Wave 2 synthesis
   Found: Design §4.6 defined `projectImageId String @unique` (non-null unique foreign key referencing ProjectImage), while Design §22 described project-level synthesis with `projectImageId = null`.
@@ -10,22 +10,20 @@
   Found: Requirements §9, §18, and Design §7.3 mandated persistent, versioned ScoringWeights with active status and audit logging, but Design §4 previously defined only 23 models without a ScoringWeights table.
   Resolution: Created dedicated `ScoringWeightVersion` model (Design §4.25, Tasks §0.2.27, Tasks §4.3.1) with unique version string, 9-factor JSON weights, `isActive` flag, and AuditLog event. `RecommendationRun` (§4.13) references `ScoringWeightVersion` via `scoringWeightsVersionId`. Total database models: exactly 25.
 
-### ACTIVE WARNINGS (3 — Flagged, Non-Blocking)
+[RESOLVED WARNING 1] Project archive/unarchive HTTP method inconsistency
+  Found: Design §6.1 specified `POST /api/v1/projects/:id/archive` (matched by Tasks §1.2.4), while Design §23.1 specified `PATCH /api/v1/projects/:id/archive`.
+  Resolution: Standardized on `POST /api/v1/projects/:id/archive` and `POST /api/v1/projects/:id/unarchive` in Design §23.1, matching Design §6.1 and Tasks §1.2.4/§1.2.5.
 
-[WARNING] Project archive/unarchive HTTP method inconsistency
-  Found: Design §6.1 specifies `POST /api/v1/projects/:id/archive` (matched by Tasks §1.2.4)
-  Impact: Design §23.1 specifies `PATCH /api/v1/projects/:id/archive`
-  → Standardize on `POST` per Design §6.1 and Tasks §1.2.4 or update API route specifications in Design §23.1.
+[RESOLVED WARNING 2] DealerBrands.brandId lacks Prisma relation to PaintBrand
+  Found: Design §4.17 defined `brandId String` on `DealerBrand` without an explicit Prisma `@relation` to `PaintBrand`.
+  Resolution: Added explicit foreign key `@relation(fields: [brandId], references: [id])` on `DealerBrand` and back-relation `dealers DealerBrand[]` on `PaintBrand` (Design §4.7, §4.17; Tasks §0.2.19). Referential integrity is enforced in the initial schema migration.
 
-[WARNING] DealerBrands.brandId lacks Prisma relation to PaintBrand
-  Found: Design §4.17 defines `brandId String` on DealerBrand without `@relation(fields: [brandId], references: [id])` to PaintBrand
-  Impact: Database will not enforce foreign key referential integrity between DealerBrand and PaintBrand
-  → Add relation fields on DealerBrand and PaintBrand in Design §4.17 if referential integrity is desired.
+[RESOLVED WARNING 3] Wave 1 unit test vs Wave 2 feature scope for ApplicationScope=BOTH
+  Found: Tasks §1.8.4 required a Wave 1 unit test asserting `ApplicationScope=BOTH triggers two recommendation lists`, whereas Tasks §2.3 and Requirements designated dual-list generation as Wave 2 work.
+  Resolution: Updated Requirements (Req 8.4, Req 9.12) and Tasks §1.8.4 to clarify that Wave 1 accepts, validates, and persists `INTERIOR`, `EXTERIOR`, and `BOTH`. Wave 2 implements and tests separate interior/exterior recommendation list generation (Tasks §2.3).
 
-[WARNING] Wave 1 unit test vs Wave 2 feature scope for ApplicationScope=BOTH
-  Found: Tasks §1.8.4 requires a Wave 1 unit test asserting `ApplicationScope=BOTH triggers two recommendation lists`
-  Impact: Tasks §2.3 and Requirements explicitly designate the dual recommendation list implementation for BOTH scope as Wave 2 work
-  → Clarify that Wave 1 validates and stores `ApplicationScope=BOTH`, while the dual-list generation algorithm is implemented in Wave 2.
+### ACTIVE BLOCKERS & WARNINGS
+None. All detected conflicts and warnings are fully resolved across Requirements.md, Design.md, Tasks.md, and GSD planning artifacts.
 
 ### INFO (2)
 

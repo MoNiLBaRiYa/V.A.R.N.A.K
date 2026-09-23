@@ -170,18 +170,14 @@ Rate limiting uses Redis sorted sets (`ZADD`, `ZREMRANGEBYSCORE`, `ZCARD`, `EXPI
    - Resolved by creating dedicated `ScoringWeightVersion` model (Design §4.25, Tasks §0.2.27, §4.3.1) with unique version string, 9-factor JSON weights, `isActive` flag, and AuditLog event.
    - `RecommendationRun` (§4.13) holds foreign key `scoringWeightsVersionId` to `ScoringWeightVersion`. Total database models: exactly 25.
 
-3. **[FLAGGED WARNING] DealerBrands.brandId Relation**:
-   - In Design §4.17, `DealerBrand` has `brandId String` without a Prisma `@relation` to `PaintBrand`.
-   - Preserved as intentional non-blocking warning per user instructions.
+3. **[RESOLVED] DealerBrands.brandId Relation**:
+   - Resolved by adding `@relation(fields: [brandId], references: [id])` on `DealerBrand` to `PaintBrand`, and back-relation `dealers DealerBrand[]` on `PaintBrand` (Design §4.7, §4.17; Tasks §0.2.19). Foreign key integrity is fully enforced in the initial Prisma schema migration.
 
-4. **[FLAGGED WARNING] Project Archive HTTP Method**:
-   - Design §6.1 specifies `POST /api/v1/projects/:id/archive`.
-   - Design §23.1 specifies `PATCH /api/v1/projects/:id/archive`.
-   - Preserved as intentional non-blocking warning per user instructions.
+4. **[RESOLVED] Project Archive HTTP Method Inconsistency**:
+   - Standardized on `POST /api/v1/projects/:id/archive` and `POST /api/v1/projects/:id/unarchive` across Design §6.1, Tasks §1.2.4/§1.2.5, and Design §23.1 (updated from PATCH to POST).
 
-5. **[FLAGGED WARNING] ApplicationScope=BOTH Test vs Feature Wave**:
-   - Tasks §1.8.4 defines a Wave 1 unit test asserting `ApplicationScope=BOTH`, while Tasks §2.3 and Requirements defer dual-list generation to Wave 2.
-   - Preserved as intentional non-blocking warning per user instructions.
+5. **[RESOLVED] ApplicationScope=BOTH Test vs Feature Wave**:
+   - Resolved by aligning Requirements (Req 8.4, 9.12) and Tasks (Task 1.8.4). Wave 1 accepts, validates, and persists `INTERIOR`, `EXTERIOR`, and `BOTH`. Wave 2 implements separate recommendation list generation for `BOTH` and tests that dual-list behavior (Tasks §2.3).
 
 ---
 
