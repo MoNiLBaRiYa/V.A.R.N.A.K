@@ -46,7 +46,7 @@ This roadmap orchestrates the delivery of V.A.R.N.A.K. across six sequential pha
   5. User can select Asian Paints and receive exactly 5 ranked recommendations with verified shade codes, factor breakdowns, and transparent natural language explanations.
   6. User can view nearby authorized Asian Paints dealers plotted with contact details.
 **Plans**: 5 plans
-- [ ] 02-01: Entra External ID OIDC integration, Auth.js session handling, and Project workspace CRUD.
+- [x] 02-01: Entra External ID OIDC integration, Auth.js session handling, and Project workspace CRUD.
 - [ ] 02-02: Google Geocoding service, location confirmation UI, and Open-Meteo climate profile integration.
 - [ ] 02-03: Image upload pipeline, Azure Blob integration, and asynchronous Gemini Vision analysis with BullMQ.
 - [ ] 02-04: Image analysis review UI with user override capabilities, and verified Asian Paints shade catalogue seeder.
@@ -116,8 +116,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/4 | Not started | - |
-| 2. MVP Core & E2E Vertical Slice | 0/5 | Not started | - |
+| 1. Foundation | 4/4 | Complete | 2026-09-25 |
+| 2. MVP Core & E2E Vertical Slice | 1/5 | In Progress | - |
 | 3. Recommendation Depth & Multi-Image | 0/3 | Not started | - |
 | 4. Generative Visualization | 0/2 | Not started | - |
 | 5. Operations, Compliance & Administration | 0/3 | Not started | - |

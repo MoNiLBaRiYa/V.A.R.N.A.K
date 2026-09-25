@@ -5,16 +5,16 @@
 See: `.planning/PROJECT.md` (updated 2026-09-22)
 
 **Core value:** Delivering scientifically grounded, climate-durable, and architecturally harmonious paint recommendations using strictly verified manufacturer shade codes, substantiated by AI property vision analysis and photorealistic previews.
-**Current focus:** Phase 1: Foundation
+**Current focus:** Phase 2: MVP Core & E2E Vertical Slice
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation)
-Plan: 4 of 4 in current phase (Complete)
-Status: COMPLETED (Phase 1 Foundation executed and verified; Next Phase: Phase 2 MVP Core & E2E Vertical Slice)
-Last activity: 2026-09-25 — Executed Plans 01-01 through 01-04, all 16 tests passing, Next.js build succeeding
+Phase: 2 of 6 (MVP Core & E2E Vertical Slice)
+Plan: 1 of 5 in current phase (Wave 1 Complete; Next: Wave 2 Plans 02-02 & 02-03)
+Status: IN_PROGRESS (Wave 1 executed and verified; Next: Wave 2 Geocoding, Climate & Image Ingestion)
+Last activity: 2026-09-25 — Executed Plan 02-01 (Auth UI, Consent & Project Workspace CRUD), 30/30 tests passing, Next.js build succeeding
 
-Progress: [████░░░░░░] 17% (Phase 1 complete)
+Progress: [█████░░░░░] 26% (5 of 19 plans complete)
 
 ## Performance Metrics
 
@@ -28,7 +28,7 @@ Progress: [████░░░░░░] 17% (Phase 1 complete)
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 4/4 | 1.4h | 21m |
-| 2. MVP Core & E2E Vertical Slice | 0/5 | - | - |
+| 2. MVP Core & E2E Vertical Slice | 1/5 | 0.3h | 18m |
 | 3. Recommendation Depth & Multi-Image | 0/3 | - | - |
 | 4. Generative Visualization | 0/2 | - | - |
 | 5. Operations, Compliance & Administration | 0/3 | - | - |
