@@ -6,7 +6,7 @@ This roadmap orchestrates the delivery of V.A.R.N.A.K. across six sequential pha
 
 ## Phases
 
-- [ ] **Phase 1: Foundation** - Repository setup, Azure SQL database migrations, Azure Blob Storage, Redis cache, BullMQ worker foundation, logging, and base rate limiting.
+- [x] **Phase 1: Foundation** - Repository setup, Azure SQL database migrations, Azure Blob Storage, Redis cache, BullMQ worker foundation, logging, and base rate limiting. (Completed 2026-09-25)
 - [ ] **Phase 2: MVP Core & E2E Vertical Slice** - Authentication via Entra External ID, project workspaces, Google geocoding, Open-Meteo climate profiling, image upload, Gemini Vision analysis, review UI, 9-factor recommendation engine with Asian Paints verified catalogue, explanation, and dealer discovery.
 - [ ] **Phase 3: Recommendation Depth & Multi-Image Aggregation** - Expansion to Birla Opus, Nerolac, and Berger Paints catalogues, advanced user preferences, palette harmony algorithms, multi-image aggregation for cohesive whole-home palettes, and BOTH scope.
 - [ ] **Phase 4: Generative Visualization** - Interactive image selection, asynchronous preview rendering via Gemini Image Generation, fallback prompts, retry handling, and side-by-side comparison UI.
@@ -29,10 +29,10 @@ This roadmap orchestrates the delivery of V.A.R.N.A.K. across six sequential pha
   5. Structured JSON logging records application events with correlated request IDs.
   6. Microsoft Entra External ID and Auth.js v5 protect /api/v1/* routes, execute user creation callbacks, and pass architectural invariant tests.
 **Plans**: 4 plans
-- [ ] 01-01: Project initialization, linting/formatting, CI/CD pipeline, and Key Vault configuration.
-- [ ] 01-02: Prisma schema definition (25 models), SQL Server database migrations, and repository data access layer.
-- [ ] 01-03: Azure Blob Storage service, Redis client, BullMQ worker scaffold (image-analysis-queue, recommendation-queue), structured logging, and rate limiting middleware.
-- [ ] 01-04: Authentication setup via Microsoft Entra External ID, Auth.js v5 session middleware, post-login callback, and security invariant test suite.
+- [x] 01-01: Project initialization, linting/formatting, CI/CD pipeline, and Key Vault configuration.
+- [x] 01-02: Prisma schema definition (25 models), SQL Server database migrations, and repository data access layer.
+- [x] 01-03: Azure Blob Storage service, Redis client, BullMQ worker scaffold (image-analysis-queue, recommendation-queue), structured logging, and rate limiting middleware.
+- [x] 01-04: Authentication setup via Microsoft Entra External ID, Auth.js v5 session middleware, post-login callback, and security invariant test suite.
 
 ### Phase 2: MVP Core & E2E Vertical Slice
 **Goal**: Deliver a complete end-to-end user journey: login, property creation, geocoding, climate profiling, photo upload, Gemini Vision inspection, analysis review, 9-factor recommendation using Asian Paints catalogue, explanation, and dealer discovery.

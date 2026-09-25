@@ -1,0 +1,46 @@
+{
+  "name": "varnak",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.24.0",
+    "@prisma/client": "^5.17.0",
+    "bullmq": "^5.8.7",
+    "ioredis": "^5.4.1",
+    "next": "^14.2.5",
+    "next-auth": "^5.0.0-beta.19",
+    "pino": "^9.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "pino-pretty": "^11.2.2",
+    "postcss": "^8.4.40",
+    "prettier": "^3.3.3",
+    "prisma": "^5.17.0",
+    "tailwindcss": "^3.4.7",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.4"
+  }
+}

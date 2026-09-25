@@ -1,0 +1,451 @@
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ----------------------------------------------------
+// Models (Exactly 25)
+// Microsoft SQL Server mappings: enums mapped as String per provider requirements
+// ----------------------------------------------------
+
+// 1. User (§4.1) - Sole identity authority: Microsoft Entra External ID; NO local passwords
+model User {
+  internalUserId    String       @id @default(uuid())
+  externalSubjectId String       @unique
+  email             String       @unique
+  role              String       @default("USER") // UserRole: USER | ADMIN
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  lastLoginAt       DateTime?
+
+  profile           UserProfile?
+  projects          Project[]
+  auditLogs         AuditLog[]
+
+  @@map("Users")
+}
+
+// 2. UserProfile (§4.2)
+model UserProfile {
+  id                     String    @id @default(uuid())
+  userId                 String    @unique
+  user                   User      @relation(fields: [userId], references: [internalUserId], onDelete: Cascade)
+  name                   String?
+  phone                  String?
+  privacyPolicyVersion   String?
+  privacyAcceptedAt      DateTime?
+  aiDisclosureAcceptedAt DateTime?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  @@map("UserProfiles")
+}
+
+// 3. Project (§4.3)
+model Project {
+  id                 String                    @id @default(uuid())
+  userId             String
+  user               User                      @relation(fields: [userId], references: [internalUserId], onDelete: Cascade)
+  name               String
+  description        String?
+  status             String                    @default("ACTIVE") // ProjectStatus: ACTIVE | ARCHIVED
+  archivedAt         DateTime?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+
+  location           ProjectLocation?
+  images             ProjectImage[]
+  recommendationRuns RecommendationRun[]
+  analysisSynthesis  ProjectAnalysisSynthesis?
+
+  @@map("Projects")
+}
+
+// 4. ProjectLocation (§4.4)
+model ProjectLocation {
+  id                    String          @id @default(uuid())
+  projectId             String          @unique
+  project               Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  rawInput              String
+  resolvedAddress       String?
+  latitude              Float
+  longitude             Float
+  geocodingProvider     String
+  inputProvenance       String          @default("AI_INFERRED") // Provenance
+  coordinatesProvenance String          @default("VERIFIED")    // Provenance
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  climateProfile        ClimateProfile?
+
+  @@map("ProjectLocations")
+}
+
+// 5. ProjectImage (§4.5)
+model ProjectImage {
+  id               String               @id @default(uuid())
+  projectId        String
+  project          Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  storageKey       String
+  originalFileName String
+  mimeType         String
+  fileSizeBytes    Int
+  processingState  String               @default("UPLOADED") // ImageProcessingState: UPLOADED | QUEUED | PROCESSING | RETRYING | COMPLETED | FAILED | DELETED
+  retryCount       Int                  @default(0)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  analysisResult   ImageAnalysisResult?
+  generationJobs   ImageGenerationJob[]
+
+  @@map("ProjectImages")
+}
+
+// 6. ImageAnalysisResult (§4.6) - Strict 1:1 with ProjectImage
+model ImageAnalysisResult {
+  id                  String        @id @default(uuid())
+  projectImageId      String        @unique
+  projectImage        ProjectImage  @relation(fields: [projectImageId], references: [id], onDelete: Cascade)
+  spaceType           String?
+  isInterior          Boolean?
+  facadeType          String?
+  floorCount          Int?
+  architecturalStyle  String?
+  visibleSurfaces     String?       // JSON string
+  naturalLightQuality String?
+  paintableRegions    String?       // JSON string
+  rawGeminiResponse   String?       // JSON string
+  analysisState       String        @default("AI_INFERRED") // AnalysisState: AI_INFERRED | USER_CONFIRMED | USER_OVERRIDDEN
+  safetyRefusalReason String?
+  analysisError       String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  @@map("ImageAnalysisResults")
+}
+
+// 7. PaintBrand (§4.7)
+model PaintBrand {
+  id        String        @id @default(uuid())
+  name      String        @unique
+  slug      String        @unique
+  isActive  Boolean       @default(true)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  products  PaintProduct[]
+  dealers   DealerBrand[]
+
+  @@map("PaintBrands")
+}
+
+// 8. PaintProduct (§4.8)
+model PaintProduct {
+  id                   String           @id @default(uuid())
+  brandId              String
+  brand                PaintBrand       @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  name                 String
+  formulation          String?
+  finishType           String?
+  applicationScope     String           // ApplicationScope: INTERIOR | EXTERIOR | BOTH
+  surfaceCompatibility String?          // JSON string
+  isActive             Boolean          @default(true)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  shades               PaintShade[]
+
+  @@map("PaintProducts")
+}
+
+// 9. PaintShade (§4.9)
+model PaintShade {
+  id              String             @id @default(uuid())
+  productId       String
+  product         PaintProduct       @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  shadeName       String
+  shadeCode       String
+  colourFamily    String
+  hexApprox       String
+  provenance      String             @default("OFFICIAL_SCRAPE") // Provenance
+  isActive        Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  sources         PaintShadeSource[]
+  recommendations Recommendation[]
+
+  @@map("PaintShades")
+}
+
+// 10. PaintShadeSource (§4.10)
+model PaintShadeSource {
+  id           String     @id @default(uuid())
+  shadeId      String
+  shade        PaintShade @relation(fields: [shadeId], references: [id], onDelete: Cascade)
+  dataSourceId String
+  dataSource   DataSource @relation(fields: [dataSourceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  retrievedAt  DateTime   @default(now())
+  approvedBy   String?
+  createdAt    DateTime   @default(now())
+
+  @@map("PaintShadeSources")
+}
+
+// 11. ClimateProfile (§4.11)
+model ClimateProfile {
+  id                      String               @id @default(uuid())
+  projectLocationId       String               @unique
+  projectLocation         ProjectLocation      @relation(fields: [projectLocationId], references: [id], onDelete: Cascade)
+  provenance              String               @default("VERIFIED") // Provenance
+  dataSourceId            String
+  dataSource              DataSource           @relation(fields: [dataSourceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  retrievedAt             DateTime             @default(now())
+  annualFreezeThawayCycles Int?
+  createdAt               DateTime             @default(now())
+  updatedAt               DateTime             @updatedAt
+
+  observations            ClimateObservation[]
+
+  @@map("ClimateProfiles")
+}
+
+// 12. ClimateObservation (§4.12)
+model ClimateObservation {
+  id               String         @id @default(uuid())
+  climateProfileId String
+  climateProfile   ClimateProfile @relation(fields: [climateProfileId], references: [id], onDelete: Cascade)
+  month            Int
+  avgTempCelsius   Float
+  avgHumidityPct   Float
+  totalRainfallMm  Float
+  avgUvIndex       Float
+  prevailingWindDir String?
+  avgWindSpeedKmh  Float?
+  createdAt        DateTime       @default(now())
+
+  @@map("ClimateObservations")
+}
+
+// 13. RecommendationRun (§4.13)
+model RecommendationRun {
+  id                            String               @id @default(uuid())
+  projectId                     String
+  project                       Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  manufacturerId                String
+  applicationScope              String               // ApplicationScope: INTERIOR | EXTERIOR | BOTH
+  scoringWeightsVersionId       String
+  scoringWeightVersion          ScoringWeightVersion @relation(fields: [scoringWeightsVersionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  scoringWeightsVersionSnapshot String
+  relaxationApplied             String?              // JSON string
+  paletteHarmonyApplied         Boolean              @default(false)
+  status                        String               @default("PENDING") // RunStatus: PENDING | RUNNING | COMPLETED | FAILED
+  createdAt                     DateTime             @default(now())
+  updatedAt                     DateTime             @updatedAt
+
+  recommendations               Recommendation[]
+  generationJobs                ImageGenerationJob[]
+
+  @@map("RecommendationRuns")
+}
+
+// 14. Recommendation (§4.14)
+model Recommendation {
+  id                   String                 @id @default(uuid())
+  runId                String
+  run                  RecommendationRun      @relation(fields: [runId], references: [id], onDelete: Cascade)
+  shadeId              String
+  shade                PaintShade             @relation(fields: [shadeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rank                 Int
+  compositeScore       Float
+  surfaceScope         String                 // ApplicationScope: INTERIOR | EXTERIOR | BOTH
+  explanation          String
+  isHarmonyReplacement Boolean                @default(false)
+  replacedCandidateId  String?
+  createdAt            DateTime               @default(now())
+
+  factors              RecommendationFactor[]
+
+  @@map("Recommendations")
+}
+
+// 15. RecommendationFactor (§4.15)
+model RecommendationFactor {
+  id               String         @id @default(uuid())
+  recommendationId String
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+  factorName       String         // ScoringFactor
+  score            Float
+  weight           Float
+  weightedScore    Float
+
+  @@map("RecommendationFactors")
+}
+
+// 16. Dealer (§4.16)
+model Dealer {
+  id                  String                    @id @default(uuid())
+  name                String
+  address             String
+  latitude            Float
+  longitude           Float
+  phone               String?
+  state               String                    @default("UNVERIFIED") // DealerState
+  discoverySource     String?
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+
+  brands              DealerBrand[]
+  verificationRecords DealerVerificationRecord[]
+
+  @@map("Dealers")
+}
+
+// 17. DealerBrand (§4.17) - Linked to Dealer and PaintBrand
+model DealerBrand {
+  id       String     @id @default(uuid())
+  dealerId String
+  dealer   Dealer     @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+  brandId  String
+  brand    PaintBrand @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([dealerId, brandId])
+  @@map("DealerBrands")
+}
+
+// 18. DealerVerificationRecord (§4.18)
+model DealerVerificationRecord {
+  id         String   @id @default(uuid())
+  dealerId   String
+  dealer     Dealer   @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+  verifiedBy String
+  verifiedAt DateTime @default(now())
+  sourceUrl  String?
+  notes      String?
+
+  @@map("DealerVerificationRecords")
+}
+
+// 19. ImageGenerationJob (§4.19) - Broken cyclic cascade on recommendationRun per SQL Server rule
+model ImageGenerationJob {
+  id                  String                @id @default(uuid())
+  projectImageId      String
+  projectImage        ProjectImage          @relation(fields: [projectImageId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  recommendationRunId String
+  recommendationRun   RecommendationRun     @relation(fields: [recommendationRunId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  status              String                @default("QUEUED") // GenerationJobStatus: QUEUED | PROCESSING | RETRYING | COMPLETED | FAILED
+  retryCount          Int                   @default(0)
+  failureReason       String?
+  fallbackPromptId    String?
+  fallbackPrompt      GeminiFallbackPrompt? @relation(fields: [fallbackPromptId], references: [id], onDelete: SetNull)
+  geminiModel         String
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  generatedImage      GeneratedImage?
+
+  @@map("ImageGenerationJobs")
+}
+
+// 20. GeneratedImage (§4.20)
+model GeneratedImage {
+  id           String             @id @default(uuid())
+  jobId        String             @unique
+  job          ImageGenerationJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  storageKey   String
+  isIndicative Boolean            @default(true)
+  createdAt    DateTime           @default(now())
+
+  @@map("GeneratedImages")
+}
+
+// 21. GeminiFallbackPrompt (§4.21)
+model GeminiFallbackPrompt {
+  id             String               @id @default(uuid())
+  name           String               @unique
+  promptText     String
+  isActive       Boolean              @default(true)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  generationJobs ImageGenerationJob[]
+
+  @@map("GeminiFallbackPrompts")
+}
+
+// 22. DataSource (§4.22)
+model DataSource {
+  id             String             @id @default(uuid())
+  name           String             @unique
+  category       String
+  providerUrl    String?
+  provenance     String             @default("VERIFIED") // Provenance
+  lastUpdatedAt  DateTime?
+  isActive       Boolean            @default(true)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  shadeSources   PaintShadeSource[]
+  climateProfiles ClimateProfile[]
+
+  @@map("DataSources")
+}
+
+// 23. AuditLog (§4.23)
+model AuditLog {
+  id           String    @id @default(uuid())
+  userId       String?
+  user         User?     @relation(fields: [userId], references: [internalUserId], onDelete: SetNull)
+  eventType    String
+  resourceType String
+  resourceId   String?
+  outcome      String
+  sourceIp     String?
+  metadata     String?   // JSON string
+  createdAt    DateTime  @default(now())
+
+  @@map("AuditLogs")
+}
+
+// 24. ProjectAnalysisSynthesis (§4.24) - Multi-image whole-home synthesis linked 1:1 to Project
+model ProjectAnalysisSynthesis {
+  id                   String     @id @default(uuid())
+  projectId            String     @unique
+  project              Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  spaceType            String?
+  spaceTypeConfidence  Float?
+  isInterior           Boolean?
+  isInteriorConfidence Float?
+  facadeType           String?
+  floorCount           Int?
+  architecturalStyle   String?
+  visibleSurfaces      String?    // JSON string
+  naturalLightQuality  String?
+  paintableRegions     String?    // JSON string
+  aggregationMetadata  String?    // JSON string
+  provenance           String     @default("DERIVED") // Provenance
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+
+  @@map("ProjectAnalysisSyntheses")
+}
+
+// 25. ScoringWeightVersion (§4.25) - Persistent 9-factor scoring weights versioning
+model ScoringWeightVersion {
+  id                  String              @id @default(uuid())
+  version             String              @unique
+  weights             String              // JSON string of 9 factors summing to 1.0
+  isActive            Boolean             @default(false)
+  description         String?
+  createdBy           String?
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  recommendationRuns  RecommendationRun[]
+
+  @@map("ScoringWeightVersions")
+}
