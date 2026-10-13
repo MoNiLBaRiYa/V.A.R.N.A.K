@@ -15,7 +15,7 @@ export interface RateLimitConfig {
 export const RATE_LIMIT_CONFIGS = {
   GENERAL_API: { windowSeconds: 60, maxRequests: 300 },
   HEAVY_ANALYSIS: { windowSeconds: 60, maxRequests: 10 },
-  IMAGE_UPLOAD: { windowSeconds: 86400, maxRequests: 50 }, // 50 / day
+  IMAGE_UPLOAD: { windowSeconds: 86400, maxRequests: 20 }, // 20 / day per user (§REQ-05, REQ-18)
 };
 
 export async function checkRateLimit(
