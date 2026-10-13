@@ -1,0 +1,99 @@
+{
+  "zones": {
+    "WARM_AND_HUMID": {
+      "name": "Warm and Humid (Coastal / Southern / Eastern)",
+      "description": "High humidity, heavy monsoon precipitation, moderate temperature variations.",
+      "representativeCoords": { "lat": 18.9, "lng": 72.8 },
+      "observations": [
+        { "month": 1, "avgTempCelsius": 24.5, "avgHumidityPct": 65.0, "totalRainfallMm": 2.5, "avgUvIndex": 7.0, "avgWindSpeedKmh": 12.0 },
+        { "month": 2, "avgTempCelsius": 25.8, "avgHumidityPct": 68.0, "totalRainfallMm": 1.8, "avgUvIndex": 8.0, "avgWindSpeedKmh": 12.5 },
+        { "month": 3, "avgTempCelsius": 28.2, "avgHumidityPct": 72.0, "totalRainfallMm": 3.0, "avgUvIndex": 9.5, "avgWindSpeedKmh": 13.0 },
+        { "month": 4, "avgTempCelsius": 30.5, "avgHumidityPct": 75.0, "totalRainfallMm": 8.0, "avgUvIndex": 11.0, "avgWindSpeedKmh": 14.5 },
+        { "month": 5, "avgTempCelsius": 32.0, "avgHumidityPct": 78.0, "totalRainfallMm": 25.0, "avgUvIndex": 11.5, "avgWindSpeedKmh": 16.0 },
+        { "month": 6, "avgTempCelsius": 29.5, "avgHumidityPct": 86.0, "totalRainfallMm": 450.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 21.0 },
+        { "month": 7, "avgTempCelsius": 28.0, "avgHumidityPct": 89.0, "totalRainfallMm": 700.0, "avgUvIndex": 6.0, "avgWindSpeedKmh": 23.0 },
+        { "month": 8, "avgTempCelsius": 28.0, "avgHumidityPct": 88.0, "totalRainfallMm": 520.0, "avgUvIndex": 6.5, "avgWindSpeedKmh": 20.0 },
+        { "month": 9, "avgTempCelsius": 28.5, "avgHumidityPct": 85.0, "totalRainfallMm": 310.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 14.0 },
+        { "month": 10, "avgTempCelsius": 29.0, "avgHumidityPct": 78.0, "totalRainfallMm": 85.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 11.0 },
+        { "month": 11, "avgTempCelsius": 27.5, "avgHumidityPct": 70.0, "totalRainfallMm": 15.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 10.5 },
+        { "month": 12, "avgTempCelsius": 25.5, "avgHumidityPct": 65.0, "totalRainfallMm": 4.0, "avgUvIndex": 6.5, "avgWindSpeedKmh": 11.0 }
+      ]
+    },
+    "HOT_AND_DRY": {
+      "name": "Hot and Dry (Western / Desert)",
+      "description": "Extreme summer temperatures, low annual rainfall, very low humidity.",
+      "representativeCoords": { "lat": 26.9, "lng": 75.8 },
+      "observations": [
+        { "month": 1, "avgTempCelsius": 15.0, "avgHumidityPct": 42.0, "totalRainfallMm": 5.0, "avgUvIndex": 6.0, "avgWindSpeedKmh": 8.0 },
+        { "month": 2, "avgTempCelsius": 18.5, "avgHumidityPct": 35.0, "totalRainfallMm": 6.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 9.5 },
+        { "month": 3, "avgTempCelsius": 24.5, "avgHumidityPct": 28.0, "totalRainfallMm": 4.0, "avgUvIndex": 9.0, "avgWindSpeedKmh": 11.0 },
+        { "month": 4, "avgTempCelsius": 31.0, "avgHumidityPct": 22.0, "totalRainfallMm": 6.5, "avgUvIndex": 11.0, "avgWindSpeedKmh": 13.0 },
+        { "month": 5, "avgTempCelsius": 35.5, "avgHumidityPct": 25.0, "totalRainfallMm": 18.0, "avgUvIndex": 12.0, "avgWindSpeedKmh": 16.0 },
+        { "month": 6, "avgTempCelsius": 34.0, "avgHumidityPct": 45.0, "totalRainfallMm": 65.0, "avgUvIndex": 11.0, "avgWindSpeedKmh": 15.0 },
+        { "month": 7, "avgTempCelsius": 30.5, "avgHumidityPct": 68.0, "totalRainfallMm": 210.0, "avgUvIndex": 8.5, "avgWindSpeedKmh": 13.0 },
+        { "month": 8, "avgTempCelsius": 29.0, "avgHumidityPct": 74.0, "totalRainfallMm": 195.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 11.5 },
+        { "month": 9, "avgTempCelsius": 29.5, "avgHumidityPct": 62.0, "totalRainfallMm": 70.0, "avgUvIndex": 8.5, "avgWindSpeedKmh": 9.0 },
+        { "month": 10, "avgTempCelsius": 26.5, "avgHumidityPct": 40.0, "totalRainfallMm": 12.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 7.5 },
+        { "month": 11, "avgTempCelsius": 21.0, "avgHumidityPct": 38.0, "totalRainfallMm": 4.0, "avgUvIndex": 6.5, "avgWindSpeedKmh": 7.0 },
+        { "month": 12, "avgTempCelsius": 16.0, "avgHumidityPct": 42.0, "totalRainfallMm": 3.0, "avgUvIndex": 5.5, "avgWindSpeedKmh": 7.5 }
+      ]
+    },
+    "COMPOSITE": {
+      "name": "Composite (North-Central Indo-Gangetic Plains)",
+      "description": "Hot dry summers, cold winters, concentrated monsoon season.",
+      "representativeCoords": { "lat": 28.6, "lng": 77.2 },
+      "observations": [
+        { "month": 1, "avgTempCelsius": 14.0, "avgHumidityPct": 65.0, "totalRainfallMm": 18.0, "avgUvIndex": 5.0, "avgWindSpeedKmh": 8.5 },
+        { "month": 2, "avgTempCelsius": 17.5, "avgHumidityPct": 58.0, "totalRainfallMm": 22.0, "avgUvIndex": 6.5, "avgWindSpeedKmh": 10.0 },
+        { "month": 3, "avgTempCelsius": 23.5, "avgHumidityPct": 45.0, "totalRainfallMm": 15.0, "avgUvIndex": 8.5, "avgWindSpeedKmh": 11.5 },
+        { "month": 4, "avgTempCelsius": 30.0, "avgHumidityPct": 32.0, "totalRainfallMm": 12.0, "avgUvIndex": 10.5, "avgWindSpeedKmh": 12.5 },
+        { "month": 5, "avgTempCelsius": 34.5, "avgHumidityPct": 35.0, "totalRainfallMm": 28.0, "avgUvIndex": 11.5, "avgWindSpeedKmh": 14.0 },
+        { "month": 6, "avgTempCelsius": 34.0, "avgHumidityPct": 52.0, "totalRainfallMm": 75.0, "avgUvIndex": 11.0, "avgWindSpeedKmh": 13.5 },
+        { "month": 7, "avgTempCelsius": 31.0, "avgHumidityPct": 75.0, "totalRainfallMm": 230.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 11.0 },
+        { "month": 8, "avgTempCelsius": 30.0, "avgHumidityPct": 78.0, "totalRainfallMm": 250.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 9.5 },
+        { "month": 9, "avgTempCelsius": 29.5, "avgHumidityPct": 68.0, "totalRainfallMm": 120.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 9.0 },
+        { "month": 10, "avgTempCelsius": 26.0, "avgHumidityPct": 52.0, "totalRainfallMm": 15.0, "avgUvIndex": 7.0, "avgWindSpeedKmh": 7.5 },
+        { "month": 11, "avgTempCelsius": 20.5, "avgHumidityPct": 55.0, "totalRainfallMm": 5.0, "avgUvIndex": 5.5, "avgWindSpeedKmh": 7.0 },
+        { "month": 12, "avgTempCelsius": 15.0, "avgHumidityPct": 62.0, "totalRainfallMm": 9.0, "avgUvIndex": 4.5, "avgWindSpeedKmh": 7.5 }
+      ]
+    },
+    "TEMPERATE": {
+      "name": "Temperate (Deccan Plateau / Southern Interior)",
+      "description": "Moderate temperatures year-round, comfortable humidity, dual monsoon exposure.",
+      "representativeCoords": { "lat": 12.9, "lng": 77.6 },
+      "observations": [
+        { "month": 1, "avgTempCelsius": 21.0, "avgHumidityPct": 55.0, "totalRainfallMm": 3.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 11.0 },
+        { "month": 2, "avgTempCelsius": 23.5, "avgHumidityPct": 48.0, "totalRainfallMm": 6.0, "avgUvIndex": 9.5, "avgWindSpeedKmh": 11.5 },
+        { "month": 3, "avgTempCelsius": 26.5, "avgHumidityPct": 45.0, "totalRainfallMm": 18.0, "avgUvIndex": 11.0, "avgWindSpeedKmh": 12.0 },
+        { "month": 4, "avgTempCelsius": 28.0, "avgHumidityPct": 52.0, "totalRainfallMm": 45.0, "avgUvIndex": 11.5, "avgWindSpeedKmh": 13.0 },
+        { "month": 5, "avgTempCelsius": 27.5, "avgHumidityPct": 65.0, "totalRainfallMm": 110.0, "avgUvIndex": 11.0, "avgWindSpeedKmh": 14.5 },
+        { "month": 6, "avgTempCelsius": 24.5, "avgHumidityPct": 75.0, "totalRainfallMm": 90.0, "avgUvIndex": 8.5, "avgWindSpeedKmh": 18.0 },
+        { "month": 7, "avgTempCelsius": 23.8, "avgHumidityPct": 78.0, "totalRainfallMm": 115.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 19.0 },
+        { "month": 8, "avgTempCelsius": 24.0, "avgHumidityPct": 77.0, "totalRainfallMm": 145.0, "avgUvIndex": 8.5, "avgWindSpeedKmh": 17.5 },
+        { "month": 9, "avgTempCelsius": 24.2, "avgHumidityPct": 75.0, "totalRainfallMm": 180.0, "avgUvIndex": 8.5, "avgWindSpeedKmh": 13.0 },
+        { "month": 10, "avgTempCelsius": 24.0, "avgHumidityPct": 74.0, "totalRainfallMm": 170.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 11.0 },
+        { "month": 11, "avgTempCelsius": 22.5, "avgHumidityPct": 68.0, "totalRainfallMm": 60.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 11.0 },
+        { "month": 12, "avgTempCelsius": 21.0, "avgHumidityPct": 62.0, "totalRainfallMm": 15.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 11.5 }
+      ]
+    },
+    "COLD": {
+      "name": "Cold (Himalayan / Northern Highlands)",
+      "description": "Sub-zero or low winter temperatures, freeze-thaw cycles, high altitude UV.",
+      "representativeCoords": { "lat": 31.1, "lng": 77.1 },
+      "observations": [
+        { "month": 1, "avgTempCelsius": 5.0, "avgHumidityPct": 55.0, "totalRainfallMm": 60.0, "avgUvIndex": 5.0, "avgWindSpeedKmh": 10.0 },
+        { "month": 2, "avgTempCelsius": 6.8, "avgHumidityPct": 58.0, "totalRainfallMm": 65.0, "avgUvIndex": 6.5, "avgWindSpeedKmh": 11.0 },
+        { "month": 3, "avgTempCelsius": 11.0, "avgHumidityPct": 52.0, "totalRainfallMm": 70.0, "avgUvIndex": 8.0, "avgWindSpeedKmh": 12.0 },
+        { "month": 4, "avgTempCelsius": 15.5, "avgHumidityPct": 45.0, "totalRainfallMm": 55.0, "avgUvIndex": 10.0, "avgWindSpeedKmh": 12.5 },
+        { "month": 5, "avgTempCelsius": 18.5, "avgHumidityPct": 48.0, "totalRainfallMm": 75.0, "avgUvIndex": 11.0, "avgWindSpeedKmh": 13.0 },
+        { "month": 6, "avgTempCelsius": 20.0, "avgHumidityPct": 65.0, "totalRainfallMm": 150.0, "avgUvIndex": 10.5, "avgWindSpeedKmh": 11.5 },
+        { "month": 7, "avgTempCelsius": 18.5, "avgHumidityPct": 85.0, "totalRainfallMm": 380.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 9.0 },
+        { "month": 8, "avgTempCelsius": 18.0, "avgHumidityPct": 88.0, "totalRainfallMm": 340.0, "avgUvIndex": 7.0, "avgWindSpeedKmh": 8.5 },
+        { "month": 9, "avgTempCelsius": 16.5, "avgHumidityPct": 78.0, "totalRainfallMm": 160.0, "avgUvIndex": 7.5, "avgWindSpeedKmh": 9.0 },
+        { "month": 10, "avgTempCelsius": 13.5, "avgHumidityPct": 55.0, "totalRainfallMm": 30.0, "avgUvIndex": 6.5, "avgWindSpeedKmh": 9.5 },
+        { "month": 11, "avgTempCelsius": 9.5, "avgHumidityPct": 50.0, "totalRainfallMm": 15.0, "avgUvIndex": 5.5, "avgWindSpeedKmh": 9.0 },
+        { "month": 12, "avgTempCelsius": 6.5, "avgHumidityPct": 52.0, "totalRainfallMm": 25.0, "avgUvIndex": 4.5, "avgWindSpeedKmh": 9.5 }
+      ]
+    }
+  }
+}
