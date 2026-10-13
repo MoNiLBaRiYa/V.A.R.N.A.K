@@ -7,7 +7,7 @@ This roadmap orchestrates the delivery of V.A.R.N.A.K. across six sequential pha
 ## Phases
 
 - [x] **Phase 1: Foundation** - Repository setup, Azure SQL database migrations, Azure Blob Storage, Redis cache, BullMQ worker foundation, logging, and base rate limiting. (Completed 2026-09-25)
-- [ ] **Phase 2: MVP Core & E2E Vertical Slice** - Authentication via Entra External ID, project workspaces, Google geocoding, Open-Meteo climate profiling, image upload, Gemini Vision analysis, review UI, 9-factor recommendation engine with Asian Paints verified catalogue, explanation, and dealer discovery.
+- [x] **Phase 2: MVP Core & E2E Vertical Slice** - Authentication via Entra External ID, project workspaces, Google geocoding, Open-Meteo climate profiling, image upload, Gemini Vision analysis, review UI, 9-factor recommendation engine with Asian Paints verified catalogue, explanation, and dealer discovery. (Completed 2026-10-13)
 - [ ] **Phase 3: Recommendation Depth & Multi-Image Aggregation** - Expansion to Birla Opus, Nerolac, and Berger Paints catalogues, advanced user preferences, palette harmony algorithms, multi-image aggregation for cohesive whole-home palettes, and BOTH scope.
 - [ ] **Phase 4: Generative Visualization** - Interactive image selection, asynchronous preview rendering via Gemini Image Generation, fallback prompts, retry handling, and side-by-side comparison UI.
 - [ ] **Phase 5: Operations, Compliance & Administration** - Self-service DSAR data export and deletion, admin catalogue verification and scoring weight workflows, audit reporting, and PDF export.
@@ -47,10 +47,10 @@ This roadmap orchestrates the delivery of V.A.R.N.A.K. across six sequential pha
   6. User can view nearby authorized Asian Paints dealers plotted with contact details.
 **Plans**: 5 plans
 - [x] 02-01: Entra External ID OIDC integration, Auth.js session handling, and Project workspace CRUD.
-- [ ] 02-02: Google Geocoding service, location confirmation UI, and Open-Meteo climate profile integration.
-- [ ] 02-03: Image upload pipeline, Azure Blob integration, and asynchronous Gemini Vision analysis with BullMQ.
-- [ ] 02-04: Image analysis review UI with user override capabilities, and verified Asian Paints shade catalogue seeder.
-- [ ] 02-05: 9-factor recommendation scoring engine, natural language explanation generator, dealer discovery via Google Places, and E2E integration test suite.
+- [x] 02-02: Google Geocoding service, location confirmation UI, and Open-Meteo climate profile integration.
+- [x] 02-03: Image upload pipeline, Azure Blob integration, and asynchronous Gemini Vision analysis with BullMQ.
+- [x] 02-04: Image analysis review UI with user override capabilities, and verified Asian Paints shade catalogue seeder.
+- [x] 02-05: 9-factor recommendation scoring engine, natural language explanation generator, dealer discovery via Google Places, and E2E integration test suite.
 
 ### Phase 3: Recommendation Depth & Multi-Image Aggregation
 **Goal**: Expand recommendation capabilities across all four manufacturers, add fine-grained preference scoring, implement palette harmony diversity filtering, and support whole-property multi-image aggregation.
