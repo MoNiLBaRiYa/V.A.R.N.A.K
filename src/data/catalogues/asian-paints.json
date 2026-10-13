@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "name": "Asian Paints",
+    "slug": "asian-paints",
+    "isActive": true
+  },
+  "dataSource": {
+    "name": "Asian Paints Architectural Specification Manual 2024",
+    "category": "MANUFACTURER_CATALOGUE",
+    "provenance": "VERIFIED",
+    "providerUrl": "https://www.asianpaints.com"
+  },
+  "products": [
+    {
+      "name": "Apex Ultima Weather Defence",
+      "formulation": "Advanced Exterior Emulsion with Silicon & PU Technology",
+      "finishType": "SHEEN",
+      "applicationScope": "EXTERIOR",
+      "surfaceCompatibility": ["EXTERIOR_WALLS", "CONCRETE", "PLASTER", "STUCCO", "BRICK", "CEMENT"]
+    },
+    {
+      "name": "Royale Luxury Emulsion",
+      "formulation": "Teflon Surface Protector Anti-Bacterial Interior Emulsion",
+      "finishType": "MATT",
+      "applicationScope": "INTERIOR",
+      "surfaceCompatibility": ["WALLS", "CEILING", "PLASTER", "DRYWALL", "CONCRETE", "WOOD"]
+    },
+    {
+      "name": "SmartCare Damp Sheath Advanced",
+      "formulation": "Triple-Layer Elastomeric Waterproofing Base Coat",
+      "finishType": "MATT",
+      "applicationScope": "BOTH",
+      "surfaceCompatibility": ["WALLS", "EXTERIOR_WALLS", "CONCRETE", "PLASTER", "BRICK"]
+    },
+    {
+      "name": "Tractor Emulsion Smooth",
+      "formulation": "Economy Interior Plastic Paint",
+      "finishType": "MATT",
+      "applicationScope": "INTERIOR",
+      "surfaceCompatibility": ["WALLS", "CEILING", "PLASTER", "DRYWALL"]
+    }
+  ],
+  "shades": [
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Morning Frost",
+      "shadeCode": "L152",
+      "colourFamily": "WHITE_AND_OFF_WHITE",
+      "hexApprox": "#F3F4F6",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Terracotta Glory",
+      "shadeCode": "X110",
+      "colourFamily": "EARTH_TONE",
+      "hexApprox": "#C86446",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Desert Dune",
+      "shadeCode": "D104",
+      "colourFamily": "EARTH_TONE",
+      "hexApprox": "#D2B48C",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Monsoon Mist",
+      "shadeCode": "M118",
+      "colourFamily": "NEUTRAL_AND_GREY",
+      "hexApprox": "#9AA0A6",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Coastal Breeze",
+      "shadeCode": "B125",
+      "colourFamily": "BLUE",
+      "hexApprox": "#7BA7BC",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Emerald Haven",
+      "shadeCode": "G142",
+      "colourFamily": "GREEN",
+      "hexApprox": "#4E7955",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Amber Glow",
+      "shadeCode": "Y133",
+      "colourFamily": "YELLOW",
+      "hexApprox": "#E6B800",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Apex Ultima Weather Defence",
+      "shadeName": "Autumn Rust",
+      "shadeCode": "R166",
+      "colourFamily": "RED_AND_ORANGE",
+      "hexApprox": "#B7410E",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Brilliant White",
+      "shadeCode": "0912",
+      "colourFamily": "WHITE_AND_OFF_WHITE",
+      "hexApprox": "#FAF9F6",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Serene Blue",
+      "shadeCode": "7245",
+      "colourFamily": "BLUE",
+      "hexApprox": "#A4C2D1",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Skyline Serenade",
+      "shadeCode": "7246",
+      "colourFamily": "BLUE",
+      "hexApprox": "#89B4C4",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Ocean Whispers",
+      "shadeCode": "7247",
+      "colourFamily": "BLUE",
+      "hexApprox": "#6D98AB",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Blue Lagoon",
+      "shadeCode": "7248",
+      "colourFamily": "BLUE",
+      "hexApprox": "#527C8E",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Teal Harmony",
+      "shadeCode": "7249",
+      "colourFamily": "BLUE",
+      "hexApprox": "#366071",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Olive Branch",
+      "shadeCode": "8411",
+      "colourFamily": "GREEN",
+      "hexApprox": "#708238",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Pistachio Soft",
+      "shadeCode": "8412",
+      "colourFamily": "GREEN",
+      "hexApprox": "#93C572",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Golden Sunlight",
+      "shadeCode": "7820",
+      "colourFamily": "YELLOW",
+      "hexApprox": "#FFD700",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Tuscan Ochre",
+      "shadeCode": "7821",
+      "colourFamily": "YELLOW",
+      "hexApprox": "#CC7722",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Warm Coral",
+      "shadeCode": "8024",
+      "colourFamily": "RED_AND_ORANGE",
+      "hexApprox": "#F88379",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Charcoal Velvet",
+      "shadeCode": "9420",
+      "colourFamily": "NEUTRAL_AND_GREY",
+      "hexApprox": "#36454F",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Silver Stream",
+      "shadeCode": "9421",
+      "colourFamily": "NEUTRAL_AND_GREY",
+      "hexApprox": "#C0C0C0",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Royale Luxury Emulsion",
+      "shadeName": "Raw Jute",
+      "shadeCode": "8520",
+      "colourFamily": "EARTH_TONE",
+      "hexApprox": "#A89F91",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "SmartCare Damp Sheath Advanced",
+      "shadeName": "Universal Primer Grey",
+      "shadeCode": "W001",
+      "colourFamily": "NEUTRAL_AND_GREY",
+      "hexApprox": "#D1D5DB",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "SmartCare Damp Sheath Advanced",
+      "shadeName": "Clean Foundation White",
+      "shadeCode": "W002",
+      "colourFamily": "WHITE_AND_OFF_WHITE",
+      "hexApprox": "#F9FAFB",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Tractor Emulsion Smooth",
+      "shadeName": "Pearl White",
+      "shadeCode": "T101",
+      "colourFamily": "WHITE_AND_OFF_WHITE",
+      "hexApprox": "#EAE6DF",
+      "provenance": "VERIFIED"
+    },
+    {
+      "productName": "Tractor Emulsion Smooth",
+      "shadeName": "Country Sand",
+      "shadeCode": "T205",
+      "colourFamily": "EARTH_TONE",
+      "hexApprox": "#C2B280",
+      "provenance": "VERIFIED"
+    }
+  ]
+}
