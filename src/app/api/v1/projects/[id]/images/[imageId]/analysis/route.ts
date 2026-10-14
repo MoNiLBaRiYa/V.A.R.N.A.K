@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
     }
 
     const { id: projectId, imageId } = params;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const image = await prisma.projectImage.findFirst({
       where: { id: imageId, projectId },
@@ -70,7 +70,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
     }
 
     const { id: projectId, imageId } = params;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const image = await prisma.projectImage.findFirst({
       where: { id: imageId, projectId },

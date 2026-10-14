@@ -26,7 +26,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
     }
 
     const projectId = params.id;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const runs = await prisma.recommendationRun.findMany({
       where: { projectId },
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     }
 
     const projectId = params.id;
-    const project = await ProjectService.getProjectById(projectId, user.internalUserId);
+    const project = await ProjectService.getProjectById(user.internalUserId, projectId);
 
     // Reject archived project with 409 Conflict (§REQ-02, REQ-09)
     if (project.status === ProjectStatus.ARCHIVED) {

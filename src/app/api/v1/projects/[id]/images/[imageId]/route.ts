@@ -23,7 +23,7 @@ export async function GET(
     }
 
     const { id: projectId, imageId } = params;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const image = await prisma.projectImage.findFirst({
       where: {
@@ -70,7 +70,7 @@ export async function DELETE(
     }
 
     const { id: projectId, imageId } = params;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const image = await prisma.projectImage.findFirst({
       where: {

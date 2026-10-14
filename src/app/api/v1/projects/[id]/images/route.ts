@@ -24,7 +24,7 @@ export async function GET(
     }
 
     const projectId = params.id;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const images = await prisma.projectImage.findMany({
       where: {
@@ -61,7 +61,7 @@ export async function POST(
     }
 
     const projectId = params.id;
-    const project = await ProjectService.getProjectById(projectId, user.internalUserId);
+    const project = await ProjectService.getProjectById(user.internalUserId, projectId);
 
     // Conflict check on archived projects (§REQ-02, REQ-05)
     if (project.status === ProjectStatus.ARCHIVED) {

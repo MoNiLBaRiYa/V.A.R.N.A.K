@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
     }
 
     const { id: projectId, runId } = params;
-    await ProjectService.getProjectById(projectId, user.internalUserId);
+    await ProjectService.getProjectById(user.internalUserId, projectId);
 
     const run = await prisma.recommendationRun.findFirst({
       where: { id: runId, projectId },
